@@ -1,0 +1,8 @@
+package types
+
+type FavouriteItem struct {
+	Price   float64 `json:"price"`
+	URLslug string  `json:"urlslug"`
+	ImgURL  string  `json:"imgurl"`
+	Name    string  `json:"name"`
+}

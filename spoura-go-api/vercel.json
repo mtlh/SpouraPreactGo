@@ -1,0 +1,32 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/product/:path*",
+            "destination": "/api/product.go"
+        },
+        {
+            "source": "/api/type/:path*",
+            "destination": "/api/type.go"
+        },
+        {
+            "source": "/api/session/:path*",
+            "destination": "/api/session.go"
+        },
+        {
+            "source": "/api/favourite/:path*",
+            "destination": "/api/favourite.go"
+        },
+        {
+            "source": "/api/cart/:path*",
+            "destination": "/api/cart.go"
+        },
+        {
+            "source": "/api/shop/:path*",
+            "destination": "/api/shop.go"
+        },
+        {
+            "source": "/api/featured/:path*",
+            "destination": "/api/featured.go"
+        }
+    ]
+}
