@@ -5,14 +5,12 @@ export function Shop ({user, setUser, loading}) {
 
     const [shopData, setShopData] = useState(null);
     const [allshopData, setAllShopData] = useState(null);
-    const [searchInput, setSearchInput] = useState("");
     const [searchLoading, setSearchLoading] = useState(false)
 	const [error, setError] = useState(null);
     
-    const query = useLocation().query["query"]
-    if (query) {
-        setSearchInput(query);
-    }
+    const location = useLocation()
+    const query = location.query["query"]
+    const [searchInput, setSearchInput] = useState(query);
     useEffect(() => {
         if (!searchLoading) {
             setSearchLoading(true)
@@ -20,11 +18,11 @@ export function Shop ({user, setUser, loading}) {
         }
     }, [searchInput])
 
-    const [typeInput, setTypeInput] = useState("all");
-    const type = useLocation().query["type"]
-    if (type) {
-        setTypeInput(type);
+    let type = location.query["type"]
+    if (!type) {
+        type = "all"
     }
+    const [typeInput, setTypeInput] = useState(type);
     useEffect(() => {
         if (shopData) {
             if (typeInput == "all") {
@@ -35,11 +33,11 @@ export function Shop ({user, setUser, loading}) {
         }
     }, [typeInput])
     
-    const [sortInput, setSortInput] = useState("any");
-    const sort = useLocation().query["sort"]
-    if (sort) {
-        setSortInput(sort);
+    let sort = useLocation().query["sort"]
+    if (!sort) {
+        sort = "any"
     }
+    const [sortInput, setSortInput] = useState(sort);
     useEffect(() => {
         if (shopData) {
             if (sortInput == "lowHigh") {

@@ -9,7 +9,7 @@ import "./index.css"
 import { Product } from './pages/Product/index.js';
 import { AuthWrapper } from './components/Auth.js';
 import { useEffect, useState } from 'preact/hooks';
-import { Shop } from './components/Shop.js';
+import { Shop } from './pages/Shop/index.js';
 
 export function App() {
 
