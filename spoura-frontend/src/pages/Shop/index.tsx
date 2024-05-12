@@ -9,7 +9,10 @@ export function Shop ({user, setUser, loading}) {
 	const [error, setError] = useState(null);
     
     const location = useLocation()
-    const query = location.query["query"]
+    let query = location.query["query"]
+    if (!query) {
+        query = ""
+    }
     const [searchInput, setSearchInput] = useState(query);
     useEffect(() => {
         if (!searchLoading) {
@@ -45,6 +48,9 @@ export function Shop ({user, setUser, loading}) {
                 setShopData(sortedData);
             } else if (sortInput == "any") {
                 setShopData(allshopData)
+            } else if (sortInput == "highLow") {
+                const sortedData = [...shopData].sort((a, b) => parseFloat(b.Price) - parseFloat(a.Price));
+                setShopData(sortedData);
             }
         }
     }, [sortInput])
@@ -81,6 +87,7 @@ export function Shop ({user, setUser, loading}) {
                     {/* @ts-ignore */}
                     <select value={sortInput} onChange={(event) => setSortInput(event.target.value)} class="rounded-lg h-auto p-2 bg-slate-200 w-80">
                         <option value="lowHigh">Low -{">"} High</option>
+                        <option value="highLow">High -{">"} Low</option>
                         <option value="any">Any</option>
                     </select>
                 </div>

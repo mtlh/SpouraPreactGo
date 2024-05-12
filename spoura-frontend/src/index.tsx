@@ -10,6 +10,7 @@ import { Product } from './pages/Product/index.js';
 import { AuthWrapper } from './components/Auth.js';
 import { useEffect, useState } from 'preact/hooks';
 import { Shop } from './pages/Shop/index.js';
+import { About } from './pages/About/index.js';
 
 export function App() {
 
@@ -46,6 +47,7 @@ export function App() {
 			<main class="min-h-screen">
 				<Router>
 					<Route path="/" component={Home} />
+					<Route path="/about" component={About} />
 					<Product path='/product/:slug' user={user} setUser={setUser} loading={loading} />
 					<Shop path='/shop' user={user} setUser={setUser} loading={loading} />
 					<Route path="*" component={NotFound} />
