@@ -17,6 +17,7 @@ export function Footer () {
                         <span class="footer-title">Navigation</span>
                         <br />
                         <a class="link link-hover p-2" href="/shop">All Products</a>
+                        <a class="link link-hover p-2" href="/cart">Cart</a>
                         <a class="link link-hover p-2" href="/about">About</a>
                         <a class="link link-hover p-2" href="/contact">Contact</a>
                     </div> 

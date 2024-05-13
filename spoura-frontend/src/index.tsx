@@ -12,10 +12,12 @@ import { useEffect, useState } from 'preact/hooks';
 import { Shop } from './pages/Shop/index.js';
 import { About } from './pages/About/index.js';
 import { Contact } from './pages/Contact/index.js';
+import { Cart } from './pages/Cart/index.js';
+import { user } from './components/types.js';
 
 export function App() {
 
-	const [user, setUser] = useState({
+	const [user, setUser] = useState<user>({
 		ID: null,
 		Nickname: null,
 		Cart: null,
@@ -50,6 +52,7 @@ export function App() {
 					<Route path="/" component={Home} />
 					<Route path="/about" component={About} />
 					<Route path="/contact" component={Contact} />
+					<Cart path="/cart" user={user} setuser={setUser} />
 					<Product path='/product/:slug' user={user} setUser={setUser} loading={loading} />
 					<Shop path='/shop' user={user} setUser={setUser} loading={loading} />
 					<Route path="*" component={NotFound} />

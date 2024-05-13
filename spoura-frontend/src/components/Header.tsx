@@ -8,7 +8,7 @@ import { useEffect, useState } from 'preact/hooks';
 import { RemoveFromCart } from './CartAction';
 
 export function Header({user, setUser, loading}) {
-	console.log(user, loading)
+	// console.log(user, loading)
 
 	const [subtotal, setSubtotal] = useState(0);
 	useEffect(() => {
