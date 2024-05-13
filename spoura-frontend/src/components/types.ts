@@ -29,3 +29,6 @@ export interface UserProp {
 	user: user,
 	setuser: any
 }
+export interface UserOnlyProp {
+	user: user,
+}
