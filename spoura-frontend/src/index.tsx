@@ -11,6 +11,7 @@ import { AuthWrapper } from './components/Auth.js';
 import { useEffect, useState } from 'preact/hooks';
 import { Shop } from './pages/Shop/index.js';
 import { About } from './pages/About/index.js';
+import { Contact } from './pages/Contact/index.js';
 
 export function App() {
 
@@ -48,6 +49,7 @@ export function App() {
 				<Router>
 					<Route path="/" component={Home} />
 					<Route path="/about" component={About} />
+					<Route path="/contact" component={Contact} />
 					<Product path='/product/:slug' user={user} setUser={setUser} loading={loading} />
 					<Shop path='/shop' user={user} setUser={setUser} loading={loading} />
 					<Route path="*" component={NotFound} />

@@ -129,9 +129,7 @@ export function About() {
             <section className="bg-gray-100 dark:bg-gray-800 py-12 md:py-24">
                 <div className="container mx-auto px-4">
                     <h2 className="text-2xl md:text-3xl font-bold mb-8">Meet Our Team</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                        <div>
-                        </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
                         <div className="bg-white dark:bg-gray-950 shadow-md p-4 rounded-lg">
                             <img
                                 alt="John Doe"
@@ -150,8 +148,6 @@ export function About() {
                                 <a class="link link-hover" href="https://mtlh.dev/" target="_blank" rel="noreferrer">Portfolio</a>
                                 <a class="link link-hover" href="https://www.linkedin.com/in/mtlh/" target="_blank" rel="noreferrer">Linkedin</a>
                             </div>
-                        </div>
-                        <div>
                         </div>
                     </div>
                 </div>
