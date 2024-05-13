@@ -198,15 +198,20 @@ export function Header({user, setUser, loading}) {
 			<div class="navbar-end">
 				{/* @ts-ignore */}
 				<input type="text" class="rounded-lg h-auto p-2 bg-slate-200 w-60 md:flex hidden" onKeyDown={(event) => {if(event.key === 'Enter'){{location.href = "/shop?query=" + event.target.value}}}} placeholder="Search..." />
+				<a href="/profile" class="ml-1">
+					<label tabindex={0} class="btn btn-ghost btn-circle">
+						<svg viewBox="0 0 24 24" fill="none" width="75%" height="75%" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="12" cy="6" r="4" stroke="#1C274C" stroke-width="1"></circle> <path d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18" stroke="#1C274C" stroke-width="1" stroke-linecap="round"></path> </g></svg>
+					</label>
+				</a>
 				<div class="dropdown dropdown-end">
-				<label tabindex={0} class="btn btn-ghost btn-circle ml-3 mr-1">
-					<div class="indicator">
-              			<svg fill="#000000" version="1.1" width="25" height="25" id="Capa_1" viewBox="0 0 490 490" stroke="#000000" stroke-width="0"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_25_" d="M316.554,108.336c4.553,6.922,2.629,16.223-4.296,20.774c-3.44,2.261-6.677,4.928-9.621,7.929 c-2.938,2.995-6.825,4.497-10.715,4.497c-3.791,0-7.585-1.427-10.506-4.291c-5.917-5.801-6.009-15.298-0.207-21.212 c4.439-4.524,9.338-8.559,14.562-11.992C302.698,99.491,312.002,101.414,316.554,108.336z M447.022,285.869 c-1.506,1.536-148.839,151.704-148.839,151.704C283.994,452.035,265.106,460,245,460s-38.994-7.965-53.183-22.427L42.978,285.869 c-57.304-58.406-57.304-153.441,0-211.847C70.83,45.634,107.882,30,147.31,30c36.369,0,70.72,13.304,97.69,37.648 C271.971,43.304,306.32,30,342.689,30c39.428,0,76.481,15.634,104.332,44.021C504.326,132.428,504.326,227.463,447.022,285.869z M425.596,95.028C403.434,72.44,373.991,60,342.69,60c-31.301,0-60.745,12.439-82.906,35.027c-1.122,1.144-2.129,2.533-3.538,3.777 c-7.536,6.654-16.372,6.32-22.491,0c-1.308-1.352-2.416-2.633-3.538-3.777C208.055,72.44,178.612,60,147.31,60 c-31.301,0-60.744,12.439-82.906,35.027c-45.94,46.824-45.94,123.012,0,169.836c1.367,1.393,148.839,151.704,148.839,151.704 C221.742,425.229,233.02,430,245,430c11.98,0,23.258-4.771,31.757-13.433l148.839-151.703l0,0 C471.535,218.04,471.535,141.852,425.596,95.028z M404.169,116.034c-8.975-9.148-19.475-16.045-31.208-20.499 c-7.746-2.939-16.413,0.953-19.355,8.698c-2.942,7.744,0.953,16.407,8.701,19.348c7.645,2.902,14.521,7.431,20.436,13.459 c23.211,23.658,23.211,62.153,0,85.811l-52.648,53.661c-5.803,5.915-5.711,15.412,0.206,21.212 c2.921,2.863,6.714,4.291,10.506,4.291c3.889,0,7.776-1.502,10.714-4.497l52.648-53.661 C438.744,208.616,438.744,151.275,404.169,116.034z"></path> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </g></svg>
-						  { user.Favourites &&
-						  	<span class="badge badge-sm bg-blue-900 indicator-item rounded-lg">{user.Favourites.length}</span>
-						  }
-					</div>
-				</label>
+					<label tabindex={0} class="btn btn-ghost btn-circle">
+						<div class="indicator">
+							<svg fill="#000000" version="1.1" width="25" height="25" id="Capa_1" viewBox="0 0 490 490" stroke="#000000" stroke-width="0"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_25_" d="M316.554,108.336c4.553,6.922,2.629,16.223-4.296,20.774c-3.44,2.261-6.677,4.928-9.621,7.929 c-2.938,2.995-6.825,4.497-10.715,4.497c-3.791,0-7.585-1.427-10.506-4.291c-5.917-5.801-6.009-15.298-0.207-21.212 c4.439-4.524,9.338-8.559,14.562-11.992C302.698,99.491,312.002,101.414,316.554,108.336z M447.022,285.869 c-1.506,1.536-148.839,151.704-148.839,151.704C283.994,452.035,265.106,460,245,460s-38.994-7.965-53.183-22.427L42.978,285.869 c-57.304-58.406-57.304-153.441,0-211.847C70.83,45.634,107.882,30,147.31,30c36.369,0,70.72,13.304,97.69,37.648 C271.971,43.304,306.32,30,342.689,30c39.428,0,76.481,15.634,104.332,44.021C504.326,132.428,504.326,227.463,447.022,285.869z M425.596,95.028C403.434,72.44,373.991,60,342.69,60c-31.301,0-60.745,12.439-82.906,35.027c-1.122,1.144-2.129,2.533-3.538,3.777 c-7.536,6.654-16.372,6.32-22.491,0c-1.308-1.352-2.416-2.633-3.538-3.777C208.055,72.44,178.612,60,147.31,60 c-31.301,0-60.744,12.439-82.906,35.027c-45.94,46.824-45.94,123.012,0,169.836c1.367,1.393,148.839,151.704,148.839,151.704 C221.742,425.229,233.02,430,245,430c11.98,0,23.258-4.771,31.757-13.433l148.839-151.703l0,0 C471.535,218.04,471.535,141.852,425.596,95.028z M404.169,116.034c-8.975-9.148-19.475-16.045-31.208-20.499 c-7.746-2.939-16.413,0.953-19.355,8.698c-2.942,7.744,0.953,16.407,8.701,19.348c7.645,2.902,14.521,7.431,20.436,13.459 c23.211,23.658,23.211,62.153,0,85.811l-52.648,53.661c-5.803,5.915-5.711,15.412,0.206,21.212 c2.921,2.863,6.714,4.291,10.506,4.291c3.889,0,7.776-1.502,10.714-4.497l52.648-53.661 C438.744,208.616,438.744,151.275,404.169,116.034z"></path> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </g></svg>
+							{ user.Favourites &&
+								<span class="badge badge-sm bg-blue-900 indicator-item rounded-lg">{user.Favourites.length}</span>
+							}
+						</div>
+					</label>
 					<div tabindex={0} class="mt-3 card card-compact dropdown-content w-96 bg-base-100 shadow p-4">
 					{ user && 
 						<>
@@ -237,68 +242,51 @@ export function Header({user, setUser, loading}) {
 					</div>
 				</div>
 				<div class="dropdown dropdown-end">
-					<label tabindex={0} class="btn btn-ghost btn-circle ml-1 mr-3">
-					<div class="indicator">
-						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-						<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-						</svg>
-						{ user.Cart &&
-						  	<span class="badge badge-sm bg-blue-900 indicator-item rounded-lg">{user.Cart.length}</span>
-						}
-					</div>
+					<label tabindex={0} class="btn btn-ghost btn-circle">
+						<div class="indicator">
+							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+								<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+							</svg>
+							{ user.Cart &&
+								<span class="badge badge-sm bg-blue-900 indicator-item rounded-lg">{user.Cart.length}</span>
+							}
+						</div>
 					</label>
 					<div tabindex={0} class="mt-3 card card-compact dropdown-content w-96 bg-base-100 shadow p-4">
-					{ user && 
-						<>
-							{ user.Cart ?
-								<>
-									<span class="text-info">Subtotal: {subtotal}</span>
-									<span class="font-bold text-xl">{user.Cart.length} Items</span>
-									{user.Cart.map(product => (
-										<div class="grid grid-cols-6">
-											<a href={"/product/" + product.urlslug} class="transition ease-in-out delay-15 duration-300 py-2 col-span-5">
-												<div class="text-lg">
-													<h2 class="text-lg">{product.name}</h2>
-													<p class="badge badge-secondary">£{product.price}</p>
-													<p class="badge badge-secondary ml-2">Size - {product.size}</p>
-													<p class="badge badge-secondary ml-2">Quantity - {product.quantity}</p>
-												</div>
-											</a>
-											<a onClick={async ()=> updateCart(await RemoveFromCart(product.urlslug, product.quantity, product.size), setUser)} class="m-auto">
-												<svg class="h-6 w-6 hover:cursor-pointer" fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"><path d="M512.481 421.906L850.682 84.621c25.023-24.964 65.545-24.917 90.51.105s24.917 65.545-.105 90.51L603.03 512.377 940.94 850c25.003 24.984 25.017 65.507.033 90.51s-65.507 25.017-90.51.033L512.397 602.764 174.215 940.03c-25.023 24.964-65.545 24.917-90.51-.105s-24.917-65.545.105-90.51l338.038-337.122L84.14 174.872c-25.003-24.984-25.017-65.507-.033-90.51s65.507-25.017 90.51-.033L512.48 421.906z"></path></g></svg>
-											</a>
-										</div>
-									))}
-								</>
-								:
-								<>
-									<span class="font-bold text-lg">0 Items</span>
-								</>
-							}
-						</>
-					}
-					{/* {#each CartProducts as product}
-						<div class="grid grid-cols-6">
-						<a href="/product/{product.id}" class="transition ease-in-out delay-15 duration-300 py-2 col-span-5">
-							<div class="text-md">
-							<h2 class="text-md">{product.name}</h2>
-							<div class="badge bg-blue-700 border-0">{product.category}</div>
-							<div class="badge badge-secondary">£{product.price}</div>
-							</div>
-						</a>
-						<!-- svelte-ignore a11y-click-events-have-key-events -->
-						<!-- svelte-ignore a11y-missing-attribute -->
-						<!-- svelte-ignore a11y-invalid-attribute -->
-						<a on:click={async ()=> await RemoveCartProduct(product.id)} class="m-auto">
-							<svg class="h-5 w-5" fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"><path d="M512.481 421.906L850.682 84.621c25.023-24.964 65.545-24.917 90.51.105s24.917 65.545-.105 90.51L603.03 512.377 940.94 850c25.003 24.984 25.017 65.507.033 90.51s-65.507 25.017-90.51.033L512.397 602.764 174.215 940.03c-25.023 24.964-65.545 24.917-90.51-.105s-24.917-65.545.105-90.51l338.038-337.122L84.14 174.872c-25.003-24.984-25.017-65.507-.033-90.51s65.507-25.017 90.51-.033L512.48 421.906z"></path></g></svg>
-						</a>
+						{ user && 
+							<>
+								{ user.Cart ?
+									<>
+										<span class="text-info">Subtotal: {subtotal}</span>
+										<span class="font-bold text-xl">{user.Cart.length} Items</span>
+										{user.Cart.map(product => (
+											<div class="grid grid-cols-6">
+												<a href={"/product/" + product.urlslug} class="transition ease-in-out delay-15 duration-300 py-2 col-span-5">
+													<div class="text-lg">
+														<h2 class="text-lg">{product.name}</h2>
+														<p class="badge badge-secondary">£{product.price}</p>
+														<p class="badge badge-secondary ml-2">Size - {product.size}</p>
+														<p class="badge badge-secondary ml-2">Quantity - {product.quantity}</p>
+													</div>
+												</a>
+												<a onClick={async ()=> updateCart(await RemoveFromCart(product.urlslug, product.quantity, product.size), setUser)} class="m-auto">
+													<svg class="h-6 w-6 hover:cursor-pointer" fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"><path d="M512.481 421.906L850.682 84.621c25.023-24.964 65.545-24.917 90.51.105s24.917 65.545-.105 90.51L603.03 512.377 940.94 850c25.003 24.984 25.017 65.507.033 90.51s-65.507 25.017-90.51.033L512.397 602.764 174.215 940.03c-25.023 24.964-65.545 24.917-90.51-.105s-24.917-65.545.105-90.51l338.038-337.122L84.14 174.872c-25.003-24.984-25.017-65.507-.033-90.51s65.507-25.017 90.51-.033L512.48 421.906z"></path></g></svg>
+												</a>
+											</div>
+										))}
+									</>
+									:
+									<>
+										<span class="font-bold text-lg">0 Items</span>
+									</>
+								}
+							</>
+						}
+						<div class="card-actions py-2">
+							<a href="/cart"><button class="btn btn-block bg-gradient-to-r from-blue-500 to-blue-900 border-0">View cart</button></a>
 						</div>
-					{/each} */}
-					<div class="card-actions py-2">
-						<a href="/cart"><button class="btn btn-block bg-gradient-to-r from-blue-500 to-blue-900 border-0">View cart</button></a>
 					</div>
 				</div>
-			</div>
 			</div>
 		</div>
 	);
