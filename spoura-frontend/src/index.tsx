@@ -23,7 +23,8 @@ export function App() {
 		ID: null,
 		Nickname: null,
 		Cart: null,
-		Favourites: null
+		Favourites: null,
+		Email: null
 	});
   	const [loading, setLoading] = useState(true);
 	useEffect(() => {
@@ -34,7 +35,8 @@ export function App() {
 				ID: userData["ID"],
 				Nickname: userData["Nickname"],
 				Cart: userData["Cart"],
-				Favourites: userData["Favourites"]
+				Favourites: userData["Favourites"],
+				Email: userData["Email"]
 			});
 		} catch (error) {
 			console.error('Authentication failed:', error);

@@ -27,7 +27,6 @@ func SessionHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Print(keyString)
 	if keyString[len(keyString)-1] != '=' {
 		keyString += "="
 	}
@@ -36,9 +35,10 @@ func SessionHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusOK)
 		return
 	}
+	log.Print(keyString)
 
 	db := db.InitDB()
-	rows, err := db.Query("SELECT User.id, User.nickname, User.cart, User.favourites FROM Session JOIN User ON Session.userid = User.id WHERE Session.key = ?", keyString)
+	rows, err := db.Query("SELECT User.id, User.email, User.nickname, User.cart, User.favourites FROM User JOIN Session ON Session.userid = User.id WHERE Session.key = ?", keyString)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -50,21 +50,32 @@ func SessionHandler(w http.ResponseWriter, r *http.Request) {
 	var cartJSON, favouritesJSON string
 	for rows.Next() {
 		if err := rows.Scan(
-			&user.ID, &user.Nickname,
+			&user.ID, &user.Email, &user.Nickname,
 			&cartJSON, &favouritesJSON); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 		json.Unmarshal([]byte(cartJSON), &user.Cart)
-		json.Unmarshal([]byte(string(favouritesJSON)), &user.Favourites)
+		json.Unmarshal([]byte(favouritesJSON), &user.Favourites)
 	}
+
+	log.Print(user.ID, *user.Email, user.Nickname)
 
 	if err := rows.Err(); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	jsonData, err := json.Marshal(user)
+	userMap := map[string]interface{}{
+		"ID":         user.ID,
+		"Nickname":   user.Nickname,
+		"Cart":       user.Cart,
+		"Favourites": user.Favourites,
+	}
+	userMap["Email"] = *user.Email
+	log.Print(userMap)
+
+	jsonData, err := json.Marshal(userMap)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

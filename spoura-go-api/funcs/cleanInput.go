@@ -32,3 +32,8 @@ func NumberOnly(s string) int {
 	}
 	return i
 }
+
+func IsValidEmail(s string) bool {
+	reg := regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+	return reg.MatchString(s)
+}

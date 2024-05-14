@@ -27,6 +27,10 @@
         {
             "source": "/api/featured/:path*",
             "destination": "/api/featured.go"
+        },
+        {
+            "source": "/api/user/:path*",
+            "destination": "/api/user.go"
         }
     ]
 }
