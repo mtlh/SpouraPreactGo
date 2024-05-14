@@ -130,7 +130,9 @@ func SignupHandler(w http.ResponseWriter, r *http.Request, email string, passwor
 	// log.Print(email)
 	// log.Print(newPass)
 
-	db.Exec("UPDATE User SET email = ?, password = ? WHERE id = ?", email, newPass, user.ID)
+	nickname := strings.Split(email, "@")[0]
+
+	db.Exec("UPDATE User SET email = ?, nickname = ?, password = ? WHERE id = ?", email, nickname, newPass, user.ID)
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Signed up."))

@@ -2,10 +2,12 @@ import { useState } from "preact/hooks";
 import { UserProp } from "../../components/types";
 import { TargetedEvent } from "preact/compat";
 import { getCookiesWithValue } from "../../components/Auth";
+import brand from "../../assets/banner-right-image.png";
 
 export default function Profile({user, setuser}: UserProp) {
 
-  console.log(user)
+  const [isLogin, setIsLogin] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
@@ -13,8 +15,7 @@ export default function Profile({user, setuser}: UserProp) {
   const HandleSignup = (e: TargetedEvent) => {
     e.preventDefault();
     if (signupPassword !== signupConfirmPassword) {
-      alert("Passwords do not match");
-      return;
+      setErrorMessage("Passwords do not match");
     }
     // Request to signup endpoint with email, password, and confirm password
     fetch("https://spoura-go-api.vercel.app/api/user/signup", {
@@ -28,10 +29,13 @@ export default function Profile({user, setuser}: UserProp) {
         session: getCookiesWithValue("spoura_session")
       }),
     })
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((data) => {
-      console.log(data);
-      location.reload();
+      if (data === "Signed up.") {
+        location.reload();
+      } else {
+        setErrorMessage(data);
+      }
     })
     .catch((error) => {
       console.error(error);
@@ -54,10 +58,13 @@ export default function Profile({user, setuser}: UserProp) {
         session: getCookiesWithValue("spoura_session")
       })
     })
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((data) => {
-      console.log(data);
-      location.reload();
+      if (data === "Logged in.") {
+        location.reload();
+      } else {
+        setErrorMessage(data);
+      }
     })
     .catch((error) => {
       console.error(error);
@@ -78,22 +85,30 @@ export default function Profile({user, setuser}: UserProp) {
         session: getCookiesWithValue("spoura_session")
       })
     })
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((data) => {
-      console.log(data);
+      if (data === "Logged out.") {
+        location.reload();
+      } else {
+        setErrorMessage(data);
+      }
     })
     .catch((error) => {
       console.error(error);
     });
   }
 
+  if (!user.ID){
+    return <div></div>
+  }
+
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 max-w-7xl mx-auto">
-          <h1 className="font-extrabold text-transparent text-7xl bg-clip-text bg-gradient-to-r from-blue-500 to-blue-900 py-8">
-                Hi {user.Nickname}!
-          </h1>
-          {user.Email ?
+        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 max-w-7xl mx-auto">
+          {user.Email && user.Email !== "null" ?
             <>
+              <h1 className="font-bold text-transparent text-7xl bg-clip-text bg-gradient-to-r from-blue-500 to-blue-900 py-8">
+                Hi {user.Nickname}!
+              </h1>
               <div className="flex items-center gap-4">
                 <h1 className="font-semibold text-lg md:text-xl">Order History</h1>
               </div><div className="border shadow-sm rounded-lg p-2">
@@ -110,54 +125,84 @@ export default function Profile({user, setuser}: UserProp) {
                     <tbody class="divide-y divide-gray-200 m-auto text-center">
                     </tbody>
                   </table>
-                </div><div className="flex items-center gap-4">
-                  <h1 className="font-semibold text-lg md:text-xl">Personal Information</h1>
-                </div><div className="border shadow-sm rounded-lg p-4">
-                  <div className="grid gap-4">
-                    {/* <div className="grid gap-1">
-                    <p htmlFor="name">Name</p>
-                    <input disabled id="name" value="Sophia Anderson" />
-                  </div>
-                  <div className="grid gap-1">
-                    <p htmlFor="email">Email</p>
-                    <input disabled id="email" value="sophia@example.com" />
-                  </div>
-                  <div className="grid gap-1">
-                    <p htmlFor="address">Shipping Address</p>
-                    <textarea
-                      className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm transition-colors focus:border-[#1e2a3a] focus:outline-none focus:ring-1 focus:ring-[#1e2a3a] dark:border-[#1e2a3a] dark:bg-[#1e2a3a] dark:text-gray-50"
-                      disabled
-                      id="address"
-                      rows={3}
-                    >
-                      1234 Main St. Anytown, CA 12345
-                    </textarea>
-                  </div> */}
-                  </div>
                 </div>
+                <button onClick={HandleLogout}>Logout</button>
             </>
           :
             <>
-              <h1 className="font-semibold text-lg md:text-xl">Login/Signup</h1>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <form className="flex flex-col gap-4" onSubmit={HandleLogin}>
-                  {/* @ts-ignore */}
-                  <input type="text" placeholder="Email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} />
-                  {/* @ts-ignore */}
-                  <input type="password" placeholder="Password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} />
-                  <button type="submit">Login</button>
-                </form>
-                <form className="flex flex-col gap-4" onSubmit={HandleSignup}>
-                  {/* @ts-ignore */}
-                  <input type="text" placeholder="Email" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
-                  {/* @ts-ignore */}
-                  <input type="password" placeholder="Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
-                  {/* @ts-ignore */}
-                  <input type="password" placeholder="Confirm Password" value={signupConfirmPassword} onChange={(e) => setSignupConfirmPassword(e.target.value)} />
-                  <button type="submit">Signup</button>
-                </form>
-                <button onClick={HandleLogout}>Logout</button>
+              <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+                <img class="mx-auto h-60 w-auto" src={brand} alt="Spoura Logo" />
+                {
+                  isLogin ?
+                  <h2 class="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">Log in to your account.</h2>
+                  :
+                  <h2 class="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account.</h2>
+                }
               </div>
+              <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                { 
+                  isLogin ?
+                  <form class="space-y-6" onSubmit={HandleLogin}>
+                    <div>
+                      <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                      <div class="mt-2">
+                        {/* @ts-ignore */}
+                        <input id="email" name="email" type="email" autocomplete="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2" />
+                      </div>
+                    </div>
+                    <div>
+                      <div class="flex items-center justify-between">
+                        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                      </div>
+                      <div class="mt-2">
+                        {/* @ts-ignore */}
+                        <input id="password" name="password" type="password" autocomplete="current-password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2" />
+                      </div>
+                    </div>
+                    <div>
+                      <button type="submit" class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Log in</button>
+                    </div>
+                    <button class="mt-10 text-center text-sm text-blue-600" onClick={()=>setIsLogin(false)}>
+                      Want to sign up?
+                    </button>
+                  </form>
+                  :
+                  <form class="space-y-6" onSubmit={HandleSignup}>
+                    <div>
+                      <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                      <div class="mt-2">
+                        {/* @ts-ignore */}
+                        <input id="email" name="email" type="email" autocomplete="email" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2" />
+                      </div>
+                    </div>
+                    <div>
+                      <div class="flex items-center justify-between">
+                        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                      </div>
+                      <div class="mt-2">
+                        {/* @ts-ignore */}
+                        <input id="password" name="password" type="password" autocomplete="current-password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2" />
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <label for="confirmpassword" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
+                      </div>
+                      <div class="mt-2">
+                        {/* @ts-ignore */}
+                        <input id="confirmpassword" name="confirmpassword" type="password" autocomplete="current-password" value={signupConfirmPassword} onChange={(e) => setSignupConfirmPassword(e.target.value)} required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2" />
+                      </div>
+                    </div>
+                    <div>
+                      <button type="submit" class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+                    </div>
+                    <button class="mt-10 text-center text-sm text-blue-600" onClick={()=>setIsLogin(true)}>
+                      Want to login?
+                    </button>
+                  </form>
+                }
+              </div>
+              <p class="text-red-500 text-center mt-10">
+                {errorMessage}
+              </p>
             </>
           }
         </main>
