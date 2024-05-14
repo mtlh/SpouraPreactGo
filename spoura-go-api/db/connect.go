@@ -73,3 +73,11 @@ func GetDB() *sql.DB {
 //     rating INT,
 //     comment VARCHAR(255)
 // );
+
+// CREATE TABLE "Order" (
+//     id INTEGER PRIMARY KEY AUTOINCREMENT,
+//     userid INT REFERENCES "User"(id),
+//     producturlslug VARCHAR(255) REFERENCES "Product"(urlslug),
+//     quantity INT,
+//     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+// );
