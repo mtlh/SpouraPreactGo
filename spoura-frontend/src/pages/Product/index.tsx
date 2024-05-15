@@ -42,6 +42,8 @@ export function Product ({user, setUser, loading}) {
 	if (!productData) {
 	  return <LoadingSpinnerCenter />
 	}
+
+    console.log(productData)
   
 	return (
 	   <>
@@ -63,7 +65,10 @@ export function Product ({user, setUser, loading}) {
                         <p>{productData.Description}</p>
                     </div>
                     {productData.Collection != null &&
-                        <p>Collection: <a class="hover:underline" href={"/collection/" + productData.Collection}>{productData.Collection}</a></p>
+                        <p class="font-medium">Collection: <a class="hover:underline" href={"/collection/" + productData.Collection}>{productData.Collection}</a></p>
+                    }
+                    {productData.Brand != null &&
+                        <p class="font-medium">Brand: <a class="hover:underline" href={"/brand/" + productData.Brand}>{productData.Brand}</a></p>
                     }
                     {/* <div class="flex pt-4 pb-4">
                         <div class="rating">
@@ -77,7 +82,7 @@ export function Product ({user, setUser, loading}) {
                         </div>
                         <div class="text-lg font-semibold">({reviewcount})</div>
                     </div> */}
-                    <p class="p-2">Size (UK): </p>
+                    <p class="py-2 pt-6">Size (UK): </p>
                     <div class="grid grid-cols-4 space-x-2 rounded-xl bg-gray-200 p-2 m-auto">
                         {[4, 5, 6, 8, 9, 10, 11, 12].map(sizeNum => (
                             <div onClick={()=> setSize(sizeNum)}>

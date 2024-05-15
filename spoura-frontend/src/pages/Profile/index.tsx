@@ -133,7 +133,7 @@ export default function Profile({user, setuser}: UserProp) {
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 max-w-7xl mx-auto">
           {user.Email && user.Email !== "null" ?
             <>
-              <h1 className="font-bold text-transparent text-7xl bg-clip-text bg-gradient-to-r from-blue-500 to-blue-900 py-8">
+              <h1 className="font-bold text-transparent md:text-7xl text-3xl bg-clip-text bg-gradient-to-r from-blue-500 to-blue-900 md:py-8">
                 Hi {user.Nickname}!
               </h1>
               <div className="flex items-center gap-4">

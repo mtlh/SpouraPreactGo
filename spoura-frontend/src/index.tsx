@@ -17,6 +17,8 @@ import { user } from './components/types.js';
 import { Checkout } from './pages/Checkout/index.js';
 import Profile from './pages/Profile/index.js';
 import { Payment } from './pages/Payment/index.js';
+import { Collection } from './pages/Collection/index.js';
+import { Brand } from './pages/Brand/index.js';
 
 export function App() {
 
@@ -61,6 +63,8 @@ export function App() {
 					<Cart path="/cart" user={user} setuser={setUser} />
 					<Profile path="/profile" user={user} setuser={setUser} />
 					<Checkout path="/checkout" user={user} />
+					<Route path="/collection/:slug" component={Collection} />
+					<Route path="/brand/:slug" component={Brand} />
 					<Product path='/product/:slug' user={user} setUser={setUser} loading={loading} />
 					<Shop path='/shop' user={user} setUser={setUser} loading={loading} />
 					<Route path="*" component={NotFound} />

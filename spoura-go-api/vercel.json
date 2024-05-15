@@ -5,6 +5,14 @@
             "destination": "/api/product.go"
         },
         {
+            "source": "/api/brand/:path*",
+            "destination": "/api/product.go"
+        },
+        {
+            "source": "/api/collection/:path*",
+            "destination": "/api/product.go"
+        },
+        {
             "source": "/api/type/:path*",
             "destination": "/api/type.go"
         },
