@@ -2,7 +2,10 @@ module spoura
 
 go 1.20
 
-require github.com/lib/pq v1.10.9
+require (
+	github.com/lib/pq v1.10.9
+	github.com/stripe/stripe-go/v78 v78.6.0
+)
 
 require (
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect

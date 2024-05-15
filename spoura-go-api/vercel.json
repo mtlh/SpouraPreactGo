@@ -31,6 +31,14 @@
         {
             "source": "/api/user/:path*",
             "destination": "/api/user.go"
+        },
+        {
+            "source": "/api/paymentintent/:path*",
+            "destination": "/api/paymentintent.go"
+        },
+        {
+            "source": "/api/clearcart/:path*",
+            "destination": "/api/clearcart.go"
         }
     ]
 }

@@ -79,5 +79,6 @@ func GetDB() *sql.DB {
 //     userid INT REFERENCES "User"(id),
 //     producturlslug VARCHAR(255) REFERENCES "Product"(urlslug),
 //     quantity INT,
+//     size VARCHAR(255),
 //     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 // );
