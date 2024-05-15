@@ -71,9 +71,51 @@ func UserHandler(w http.ResponseWriter, r *http.Request) {
 		SignupHandler(w, r, email, password, session)
 	} else if parts[3] == "logout" {
 		LogoutHandler(w, r, session)
+	} else if parts[3] == "order" {
+		OrderHandler(w, r, session)
 	} else {
 		LoginHandler(w, r, email, password, session)
 	}
+}
+
+func OrderHandler(w http.ResponseWriter, r *http.Request, session string) {
+	db := db.InitDB()
+	defer db.Close()
+
+	rows, err := db.Query("SELECT User.id FROM Session JOIN User ON Session.userid = User.id WHERE Session.key = ?", session)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	var user types.User
+	for rows.Next() {
+		if err := rows.Scan(&user.ID); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	}
+
+	rows, err = db.Query("SELECT `Order`.producturlslug, `Order`.quantity, `Order`.size, `Order`.date FROM `Order` JOIN User ON `Order`.userid = User.id WHERE User.id = ?", user.ID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	var orders []types.Order
+	for rows.Next() {
+		var order types.Order
+		if err := rows.Scan(&order.ProductURLSlug, &order.Quantity, &order.Size, &order.Date); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		orders = append(orders, order)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(orders)
 }
 
 func SignupHandler(w http.ResponseWriter, r *http.Request, email string, password string, session string) {

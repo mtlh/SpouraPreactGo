@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { UserProp } from "../../components/types";
 import { TargetedEvent } from "preact/compat";
 import { getCookiesWithValue } from "../../components/Auth";
@@ -8,6 +8,33 @@ export default function Profile({user, setuser}: UserProp) {
 
   const [isLogin, setIsLogin] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+
+
+  const [order, setOrder] = useState([]);
+  if (user.Email && user.Email !== "null") {
+    useEffect(() => {
+      fetch("https://spoura-go-api.vercel.app/api/user/order", (
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },  
+          body: JSON.stringify({
+            email: "abc",
+            password: "abc",
+            session: getCookiesWithValue("spoura_session")
+          })
+        }
+      ))
+      .then((response) => response.json())
+      .then((data) => {
+        setOrder(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }, []);
+  }
 
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
@@ -115,14 +142,25 @@ export default function Profile({user, setuser}: UserProp) {
                   <table class="w-full">
                     <thead>
                       <tr>
-                        <th class="w-[100px]">Order</th>
                         <th class="min-w-[150px]">Product</th>
                         <th class="hidden md:table-cell">Quantity</th>
+                        <th class="hidden md:table-cell">Size</th>
                         <th class="hidden md:table-cell">Date</th>
-                        <th class="text-right">Total</th>
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 m-auto text-center">
+                      {order.map((item) => (
+                        <tr key={item.producturlslug}>
+                          <td>
+                            <a href={"/product/" + item.producturlslug}>
+                              {item.producturlslug}
+                            </a>
+                          </td>
+                          <td>{item.quantity}</td>
+                          <td>{item.size}</td>
+                          <td>{new Date(item.date).toLocaleDateString()}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
