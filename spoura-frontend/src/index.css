@@ -9,7 +9,7 @@
     @apply absolute w-full h-full transition-all duration-500 ease-in-out transform bg-center bg-cover;
 }
 .card-zoom-text {
-    @apply absolute text-5xl font-black transition-all duration-500 ease-in-out transform scale-150 text-gray-800 opacity-70;
+    @apply absolute text-5xl font-black transition-all duration-500 ease-in-out transform scale-150 text-black opacity-70;
 }
 .card-zoom:hover .card-zoom-image {
     @apply scale-110;

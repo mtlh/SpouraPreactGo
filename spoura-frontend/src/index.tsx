@@ -66,7 +66,7 @@ export function App() {
 					<Route path="/collection/:slug" component={Collection} />
 					<Route path="/brand/:slug" component={Brand} />
 					<Product path='/product/:slug' user={user} setUser={setUser} loading={loading} />
-					<Shop path='/shop' user={user} setUser={setUser} loading={loading} />
+					<Route path="/shop" component={Shop} />
 					<Route path="*" component={NotFound} />
 				</Router>
 			</main>

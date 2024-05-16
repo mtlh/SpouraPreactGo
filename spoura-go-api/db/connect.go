@@ -52,6 +52,7 @@ func GetDB() *sql.DB {
 //     name VARCHAR(255),
 //     description VARCHAR(255),
 //     imgurl VARCHAR(255),
+//     brand VARCHAR(255) REFERENCES "Brand"(urlslug),
 //     urlslug VARCHAR(255) PRIMARY KEY
 // );
 

@@ -168,25 +168,25 @@ export function Home() {
 
 			{/* <!-- Collections --> */}
 			<div class="grid grid-cols-2 items-center w-full h-full text-center justify-center">
-				<a href="/shop?query=Nike">
+				<a href="/brand/nike">
 					<div class="card-zoom">
 						<div class="card-zoom-image nike"></div>
 						<h1 class="card-zoom-text">NIKE</h1>
 					</div>
 				</a>
-				<a href="/shop?query=Adidas">
+				<a href="/brand/adidas">
 					<div class="card-zoom">
 						<div class="card-zoom-image adidas"></div>
 						<h1 class="card-zoom-text">ADIDAS</h1>
 					</div>
 				</a>
-				<a href="/shop?query=Puma">
+				<a href="/brand/puma">
 					<div class="card-zoom">
 						<div class="card-zoom-image puma"></div>
 						<h1 class="card-zoom-text">PUMA</h1>
 					</div>
 				</a>
-				<a href="/shop?query=Under%20Armour">
+				<a href="/brand/under-armour">
 					<div class="card-zoom">
 					<div class="card-zoom-image under"></div>
 					<h1 class="card-zoom-text">UNDER ARMOUR</h1>

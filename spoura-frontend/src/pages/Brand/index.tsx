@@ -31,8 +31,8 @@ export function Brand () {
 	if (!brandData) {
 	  return <LoadingSpinnerCenter />
 	}
-  
-	return (
+
+  	return (
 	   <>
             {brandData.name ?
                 <>
@@ -42,29 +42,52 @@ export function Brand () {
                         <img src={brandData.imgurl} class="w-60 h-60 bg-contain bg-center" alt="Brand Logo" />
                     </div>
                 </div>
+                <p class="m-auto mb-2 px-10 mt-6 text-lg font-semibold text-center">{brandData.description}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 justify-center m-auto max-w-7xl items-stretch my-8">
+                    {
+                        brandData.Collection ?
+                        <>
+                            {brandData.Collection.map(collection => 
+                                <a href={`/collection/${collection.urlslug}`}>
+                                    <div class="card-zoom">
+                                        <div class="card-zoom-image" style={{ backgroundImage: `url(${collection.imgURL})` }}></div>
+                                        <h1 class="card-zoom-text">{collection.name}</h1>
+                                    </div>
+                                </a>
+                            )}
+                        </>
+                        :
+                        <p>No collections found for this brand.</p>
+                    }
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center m-auto max-w-7xl items-stretch">
-                    <p class="col-span-3 m-auto mb-2 px-10 mt-6 text-lg font-semibold">{brandData.description}</p>
                     <h2 class="col-span-3 mt-12 px-10 text-4xl text-blue-500 font-extrabold">Products</h2>
-                    <div class="col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center m-auto items-stretch my-6 gap-8">
-                        {brandData.Products.map(product => 
-                            <a href={`/product/${product.URLSlug}`} class="transition ease-in-out delay-15 hover:scale-105 duration-300 md:p-10 m-auto">
-                                <div class="card h-72 w-80 ring-2 rounded-xl bg-center bg-cover" style={{ backgroundImage: `url(${product.ImgURL})` }}>
-                                <div class="card-body pb-40">
-                                    <h2 class="card-title">{product.Name}</h2>
-                                    {product.Type == "m" &&
-                                        <div class="badge bg-blue-700 border-0">Mens</div>
-                                    }
-                                    {product.Type == "k" &&
-                                        <div class="badge bg-blue-700 border-0">Kids</div>
-                                    }
-                                    {product.Type == "w" &&
-                                        <div class="badge bg-blue-700 border-0">Womens</div>
-                                    }
-                                    <div class="badge badge-secondary">£{product.Price}</div>
-                                </div>
-                            </div>
-                        </a>
-                        )}
+                    <div class="col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center m-auto items-stretch my-6 gap-14">
+                        {brandData.Products ?
+                            <>
+                                {brandData.Products.map(product => 
+                                    <a href={`/product/${product.URLSlug}`} class="transition ease-in-out delay-15 hover:scale-105 duration-300 md:p-10 m-auto">
+                                        <div class="card h-72 w-80 ring-2 rounded-xl bg-center bg-cover" style={{ backgroundImage: `url(${product.ImgURL})` }}>
+                                        <div class="card-body pb-40">
+                                            <h2 class="card-title">{product.Name}</h2>
+                                            {product.Type == "m" &&
+                                                <div class="badge bg-blue-700 border-0">Mens</div>
+                                            }
+                                            {product.Type == "k" &&
+                                                <div class="badge bg-blue-700 border-0">Kids</div>
+                                            }
+                                            {product.Type == "w" &&
+                                                <div class="badge bg-blue-700 border-0">Womens</div>
+                                            }
+                                            <div class="badge badge-secondary">£{product.Price}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                )}
+                            </>
+                            :
+                            <p>No products found for this brand.</p>
+                        }
                     </div>
                 </div>
                 </>

@@ -5,5 +5,6 @@ type Brand struct {
 	URLSlug     string `json:"urlslug"`
 	Description string `json:"description"`
 	ImgURL      string `json:"imgurl"`
+	Collection  []BrandCollection
 	Products    []Product
 }

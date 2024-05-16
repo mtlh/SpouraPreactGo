@@ -13,56 +13,45 @@ import (
 
 func BrandHandler(w http.ResponseWriter, r *http.Request, brandSlug string) {
 	db := db.InitDB()
-	rows, err := db.Query("SELECT * FROM Brand WHERE urlslug = ?", brandSlug)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	defer rows.Close()
 	defer db.Close()
 
-	var brand types.Brand
-	for rows.Next() {
-		if err := rows.Scan(
-			&brand.Name, &brand.Description,
-			&brand.ImgURL, &brand.URLSlug); err != nil {
+	productChan := make(chan []types.Product)
+	collectionChan := make(chan []types.BrandCollection)
+	brandChan := make(chan types.Brand)
+
+	go func() {
+		products, err := funcs.GetProducts(db, brandSlug)
+		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-	}
+		productChan <- products
+	}()
 
-	if err := rows.Err(); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	rows, err = db.Query("SELECT * FROM Product WHERE brand = ?", brandSlug)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	defer rows.Close()
-
-	var products []types.Product
-	for rows.Next() {
-		var product types.Product
-		if err := rows.Scan(
-			&product.ImgURL, &product.Name,
-			&product.Price, &product.URLSlug,
-			&product.Brand, &product.Collection,
-			&product.Type, &product.Description); err != nil {
+	go func() {
+		collections, err := funcs.GetCollection(db, brandSlug)
+		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		products = append(products, product)
-	}
+		collectionChan <- collections
+	}()
 
-	if err := rows.Err(); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	go func() {
+		brand, err := funcs.GetBrand(db, brandSlug)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		brandChan <- brand
+	}()
+
+	// Wait for all goroutines to finish and receive results
+	products := <-productChan
+	collections := <-collectionChan
+	brand := <-brandChan
 
 	brand.Products = products
+	brand.Collection = collections
 
 	jsonData, err := json.Marshal(brand)
 	if err != nil {
@@ -144,7 +133,7 @@ func ProductHandler(w http.ResponseWriter, r *http.Request, urlslug string) {
 
 func CollectionHandler(w http.ResponseWriter, r *http.Request, collectionSlug string) {
 	db := db.InitDB()
-	rows, err := db.Query("SELECT * FROM Collection WHERE urlslug = ?", collectionSlug)
+	rows, err := db.Query("SELECT name, description, imgURL, urlslug FROM Collection WHERE urlslug = ?", collectionSlug)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
