@@ -2,37 +2,36 @@ import { useLocation } from "preact-iso"
 import { useEffect, useState } from "preact/hooks";
 import { LoadingSpinnerCenter } from "../../components/LoadingSpinner";
 
+
 export function Shop () {
 
     const [shopData, setShopData] = useState(null);
-    const [allshopData, setAllShopData] = useState(null);
     const [searchLoading, setSearchLoading] = useState(false)
 	const [error, setError] = useState(null);
     
     const location = useLocation()
     let query = location.query["query"]
-    if (!query) {
-        query = ""
-    }
+    if (!query) { query = ""}
     const [searchInput, setSearchInput] = useState(query);
-    useEffect(() => {
-        if (!searchLoading) {
-            setSearchLoading(true)
-            NewQuery(searchInput, setShopData, setAllShopData, setError, setSearchLoading, sortInput, typeInput)
-        }
-    }, [searchInput])
+
+    let page = parseInt(location.query["page"])
+    if (!page) { page = 1}
+    const [pageInput, setPageInput] = useState(page);
 
     let type = location.query["type"]
     if (!type) { type = "all" }
     const [typeInput, setTypeInput] = useState(type);
-    let sort = useLocation().query["sort"]
+
+    let sort = location.query["sort"]
     if (!sort) { sort = "any" }
     const [sortInput, setSortInput] = useState(sort);
+
     useEffect(() => {
-        if (allshopData) {
-            setShopData(sortType(sortInput, filterType(typeInput, allshopData)))
+        if (!searchLoading) {
+            setSearchLoading(true)
+            NewQuery(searchInput, pageInput, setShopData, setError, setSearchLoading, sortInput, typeInput)
         }
-    }, [typeInput, sortInput])
+    }, [searchInput, pageInput, sortInput, typeInput])
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -40,14 +39,26 @@ export function Shop () {
 
     if (!shopData) {
         return <LoadingSpinnerCenter />
-      }
+    }
+
+    function handlePageIncrement() {
+        if (pageInput < Math.ceil(shopData.resultCount/12)) {
+            setPageInput(pageInput + 1);
+        }
+    }
+
+    function handlePageDecrement() {
+        if (pageInput > 1) {
+            setPageInput(pageInput - 1);
+        }
+    }
 
     return (
         <div class="grid">
             <div class="lg:grid lg:fixed justify-center m-auto items-stretch max-w-7xl min-w-full bg-white sticky pt-4 z-10">
                 <div class="grid grid-cols-1 md:grid-cols-3 p-2 gap-4 m-auto">
                     {/* @ts-ignore */}
-                    <input type="text" class="rounded-lg h-auto p-2 bg-slate-200 lg:w-80 md:w-60 w-96 m-auto" onChange={(event) => setSearchInput(event.target.value)} onKeyDown={(event) => {if(event.key === 'Enter'){{setSearchInput(event.target.value)}}}} value={searchInput} placeholder="Search..." />
+                    <input type="text" class="rounded-lg h-auto p-2 bg-slate-200 lg:w-80 md:w-60 w-96 m-auto" onKeyDown={(event) => {if(event.key === 'Enter'){{setSearchInput(event.target.value)}}}} value={searchInput} placeholder="Search..." />
                     {/* @ts-ignore */}
                     <select value={typeInput} onChange={(event) => setTypeInput(event.target.value)} class="rounded-lg h-auto p-2 bg-slate-200 lg:w-80 md:w-60 w-96 m-auto">
                         <option value="m">Mens</option>
@@ -66,47 +77,60 @@ export function Shop () {
                     </select>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center m-auto items-stretch mt-10 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center m-auto items-stretch mt-10">
                 {!searchLoading ?
                     <>
-                        {shopData.map(product => (
-                            <div class="my-6 hover:scale-105 ease-in-out transition">
-                                <a href={"/product/" + product.URLSlug} class="m-auto">
-                                    <div class="card h-72 w-80 bg-center bg-cover -z-10" style={{ backgroundImage: 'url(' + product.ImgURL + ')'}}>
-                                        <div class="card-body pb-40">
-                                            <h2 class="card-title">{product.Name}</h2>
-                                            {product.Type == "m" &&
-                                                <div class="badge bg-blue-700 border-0">Mens</div>
-                                            }
-                                            {product.Type == "k" &&
-                                                <div class="badge bg-blue-700 border-0">Kids</div>
-                                            }
-                                            {product.Type == "w" &&
-                                                <div class="badge bg-blue-700 border-0">Womens</div>
-                                            }
-                                            <div class="badge badge-secondary">£{product.Price}</div>
-                                        </div>
+                        <p class="col-span-4 text-center text-gray-600 mt-10">{shopData.resultCount} results found</p>
+                        {shopData &&
+                            <>
+                                {shopData.products.map(product => (
+                                    <div class="my-6 hover:scale-105 ease-in-out transition">
+                                        <a href={"/product/" + product.URLSlug} class="m-auto">
+                                            <div class="card h-72 w-80 bg-center bg-cover -z-10" style={{ backgroundImage: 'url(' + product.ImgURL + ')'}}>
+                                                <div class="card-body pb-40">
+                                                    <h2 class="card-title">{product.Name}</h2>
+                                                    {product.Type == "m" &&
+                                                        <div class="badge bg-blue-700 border-0">Mens</div>
+                                                    }
+                                                    {product.Type == "k" &&
+                                                        <div class="badge bg-blue-700 border-0">Kids</div>
+                                                    }
+                                                    {product.Type == "w" &&
+                                                        <div class="badge bg-blue-700 border-0">Womens</div>
+                                                    }
+                                                    <div class="badge badge-secondary">£{product.Price}</div>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                        ))}
+                                ))}
+                            </>
+                        }
+                        <div class="flex justify-center my-10 m-auto col-span-4">
+                            <button class="rounded-l-lg h-auto p-2 bg-slate-200 w-40 m-auto text-center" onClick={handlePageDecrement}>-</button>
+                            <p class="h-auto p-2 bg-slate-200 w-10 m-auto text-center">{pageInput}/{Math.ceil(shopData.resultCount/12)}</p>
+                            <button class="rounded-r-lg h-auto p-2 bg-slate-200 w-40 m-auto text-center" onClick={handlePageIncrement}>+</button>
+                        </div>
                     </>
                     :
-                    <div class="pt-16">
-                        <svg class="animate-spin h-16 w-16 text-blue-700 m-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </div>
+                    <>
+                        <div class="col-span-4">
+                            <LoadingSpinnerCenter />
+                        </div>
+                    </>
                 }
             </div>
         </div>
     )
 }
 
-function NewQuery (q, setShopData, setAllShopData, setError, setSearchLoading, sortInput, typeInput) {
+function NewQuery (q, p, setShopData, setError, setSearchLoading, sortInput, typeInput) {
+    let url = "https://spoura-go-api.vercel.app/api/shop/" + q + "?page=" + p + "&sort=" + sortInput + "&type=" + typeInput
+    if (!q) {
+        url = "https://spoura-go-api.vercel.app/api/shop/" + "?page=" + p  + "&sort=" + sortInput + "&type=" + typeInput
+    }
     setTimeout(function() {
-        fetch('https://spoura-go-api.vercel.app/api/shop/' + q)
+        fetch(url)
         .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -114,32 +138,19 @@ function NewQuery (q, setShopData, setAllShopData, setError, setSearchLoading, s
         return response.json();
         })
         .then(data => {
-            setAllShopData(data);
-            setShopData(sortType(sortInput, filterType(typeInput, data)))
+            setShopData(data);
         })
         .catch(error => {
             setError(error.message);
         });
         setTimeout(function() {
             setSearchLoading(false)
+            const newUrl = `/shop?query=${q}&page=${p}&sort=${sortInput}&type=${typeInput}`;
+            window.history.replaceState(
+                { ...window.history.state, as: "/shop", url: newUrl },
+                "",
+                newUrl
+              );
         }, 100);
     }, 100);
-}
-
-function sortType (sortInput, shopData) {
-    if (sortInput == "lowHigh") {
-        return  [...shopData].sort((a, b) => parseFloat(a.Price) - parseFloat(b.Price));
-    } else if (sortInput == "any") {
-        return shopData;
-    } else if (sortInput == "highLow") {
-        return [...shopData].sort((a, b) => parseFloat(b.Price) - parseFloat(a.Price));
-    }
-}
-
-function filterType (typeInput, allshopData) {
-    if (typeInput == "all") {
-        return allshopData;
-    } else {
-        return allshopData.filter(item => item.Type === typeInput)
-    }
 }

@@ -1,11 +1,14 @@
 package api
 
 import (
+	"database/sql"
 	"encoding/json"
 	"net/http"
+	"sort"
 	"spoura/db"
 	"spoura/funcs"
 	"spoura/types"
+	"strconv"
 	"strings"
 
 	_ "github.com/tursodatabase/libsql-client-go/libsql"
@@ -18,14 +21,23 @@ func ShopHandler(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	var query string
 
-	if len(parts) != 4 || parts[3] == "" {
+	if (len(parts) != 4) || parts[3] == "" {
 		query = "%"
 	} else {
 		query = "%" + funcs.CleanWithQueryString(parts[3]) + "%"
 	}
 
 	db := db.InitDB()
-	rows, err := db.Query("SELECT * FROM Product WHERE name LIKE ?", query)
+	var rows *sql.Rows
+	var err error
+
+	typeString := r.URL.Query().Get("type")
+	if typeString == "all" || typeString == "" {
+		rows, err = db.Query("SELECT * FROM Product WHERE name LIKE ?", query, typeString)
+	} else {
+		rows, err = db.Query("SELECT * FROM Product WHERE name LIKE ? AND type = ?", query, typeString)
+	}
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -52,7 +64,35 @@ func ShopHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jsonData, err := json.Marshal(products)
+	sortString := r.URL.Query().Get("sort")
+	if sortString == "lowHigh" {
+		sort.Slice(products, func(i, j int) bool {
+			return products[i].Price < products[j].Price
+		})
+	} else if sortString == "highLow" {
+		sort.Slice(products, func(i, j int) bool {
+			return products[i].Price > products[j].Price
+		})
+	}
+
+	page := 1
+	pageString := r.URL.Query().Get("page")
+	if pageString != "" {
+		page, err = strconv.Atoi(pageString)
+		if err != nil || page < 1 {
+			page = 1
+		}
+	}
+	resultCount := len(products)
+	products = funcs.PaginateProducts(products, page)
+
+	data := map[string]interface{}{
+		"products":    products,
+		"page":        page,
+		"resultCount": resultCount,
+	}
+
+	jsonData, err := json.Marshal(data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
