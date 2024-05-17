@@ -28,8 +28,12 @@ export function Header({user, setUser, loading}) {
 				</label>
 				<ul tabindex={0} class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-96">
 					<div class="flex">
-						{/* @ts-ignore */}
-						<input type="text" class="rounded-lg h-auto p-2 bg-slate-200 w-72" onKeyDown={(event) => {if(event.key === 'Enter'){{location.href = "/shop?query=" + event.target.value}}}} placeholder="Search..." />
+						{
+							user.Autocomplete ?
+								<Autocomplete suggestions={user.Autocomplete} />
+							:
+								<p>Loading Product List...</p>
+						}
 					</div>
 					<li tabindex={0} class="grid grid-cols-3 py-2">
 						<div class="font-semibold text-lg col-span-3">Products</div>
@@ -182,8 +186,12 @@ export function Header({user, setUser, loading}) {
 			</ul>
 			</div>
 			<div class="navbar-end">
-				{/* @ts-ignore */}
-				<input type="text" class="rounded-lg h-auto p-2 bg-slate-200 w-60 md:flex hidden" onKeyDown={(event) => {if(event.key === 'Enter'){{location.href = "/shop?query=" + event.target.value}}}} placeholder="Search..." />
+				{
+					user.Autocomplete ?
+						<Autocomplete suggestions={user.Autocomplete} />
+					:
+						<p>Loading Product List...</p>
+				}
 				<a href="/profile" class="ml-1">
 					<label tabindex={0} class="btn btn-ghost btn-circle">
 						<svg viewBox="0 0 24 24" fill="none" width="75%" height="75%" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="12" cy="6" r="4" stroke="#1C274C" stroke-width="1"></circle> <path d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18" stroke="#1C274C" stroke-width="1" stroke-linecap="round"></path> </g></svg>
@@ -275,5 +283,67 @@ export function Header({user, setUser, loading}) {
 				</div>
 			</div>
 		</div>
+		
 	);
 }
+
+
+const Autocomplete = ({ suggestions }) => {
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [userInput, setUserInput] = useState("");
+
+  const onChange = (e) => {
+    const userInput = e.target.value;
+    const filteredSuggestions = suggestions.filter(
+      suggestion => suggestion.Name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+    );
+
+    setUserInput(e.target.value);
+    setFilteredSuggestions(filteredSuggestions);
+    setShowSuggestions(true);
+  };
+
+  const onClick = (e) => {
+    setFilteredSuggestions([]);
+    setUserInput(e.target.id);
+    setShowSuggestions(false);
+  };
+
+  const SuggestionsListComponent = () => {
+    return filteredSuggestions.length ? (
+      <ul className="suggestions">
+        {filteredSuggestions.map((suggestion, index) => {
+          return (
+            <option key={index} onClick={onClick} class="w-40 bg-gray-50 text-black" id={suggestion.URLSlug}>
+              {suggestion.Name}
+            </option>
+          );
+        })}
+      </ul>
+    ) : (
+      <div className="no-suggestions">
+        <em>No suggestions!</em>
+      </div>
+    );
+  };
+
+  return (
+    <div>
+		{/* @ts-ignore */}
+		<input onKeyDown={(event) => {if(event.key === 'Enter'){{ if (filteredSuggestions.length == 1) { location.href = "/product/" + filteredSuggestions[0].URLSlug } else { location.href = "/shop?query=" + event.target.value }}}}}
+			type="text" class="rounded-lg h-auto p-2 bg-slate-200 w-60 md:flex hidden"
+			list="autcompleteProducts" placeholder="Search..." onChange={onChange} value={userInput}
+		/>
+		{showSuggestions && userInput && 
+			<>
+				<datalist id="autcompleteProducts">
+					<SuggestionsListComponent />
+				</datalist>
+			</>
+		}
+    </div>
+  );
+};
+
+export default Autocomplete;

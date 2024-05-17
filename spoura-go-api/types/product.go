@@ -10,3 +10,8 @@ type Product struct {
 	Description string
 	Type        string // 'm', 'w', or 'k'
 }
+
+type ProductAutocomplete struct {
+	URLSlug string
+	Name    string
+}

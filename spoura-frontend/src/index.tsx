@@ -27,7 +27,8 @@ export function App() {
 		Nickname: null,
 		Cart: null,
 		Favourites: null,
-		Email: null
+		Email: null,
+		Autocomplete: null
 	});
   	const [loading, setLoading] = useState(true);
 	useEffect(() => {
@@ -39,7 +40,8 @@ export function App() {
 				Nickname: userData["Nickname"],
 				Cart: userData["Cart"],
 				Favourites: userData["Favourites"],
-				Email: userData["Email"]
+				Email: userData["Email"],
+				Autocomplete: userData["Autocomplete"]
 			});
 		} catch (error) {
 			console.error('Authentication failed:', error);

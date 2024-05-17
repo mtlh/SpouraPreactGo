@@ -24,6 +24,7 @@ export type user = {
 	Cart: null | cartproduct[],
 	Favourites: null | favouriteproduct[],
 	Email: null | string,
+	Autocomplete: null | AutocompleteProduct[]
 }
 
 export interface UserProp {
@@ -32,4 +33,9 @@ export interface UserProp {
 }
 export interface UserOnlyProp {
 	user: user,
+}
+
+export type AutocompleteProduct = {
+	ImgURL: string,
+	Name: string
 }

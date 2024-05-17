@@ -66,11 +66,38 @@ func SessionHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	rows, err = db.Query("SELECT urlslug, name FROM Product")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	var autcompleteProducts []types.ProductAutocomplete
+	for rows.Next() {
+		var product types.Product
+		if err := rows.Scan(
+			&product.URLSlug, &product.Name); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		autcompleteProducts = append(autcompleteProducts, types.ProductAutocomplete{
+			URLSlug: product.URLSlug,
+			Name:    product.Name,
+		})
+	}
+
+	if err := rows.Err(); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	userMap := map[string]interface{}{
-		"ID":         user.ID,
-		"Nickname":   user.Nickname,
-		"Cart":       user.Cart,
-		"Favourites": user.Favourites,
+		"ID":           user.ID,
+		"Nickname":     user.Nickname,
+		"Cart":         user.Cart,
+		"Favourites":   user.Favourites,
+		"Autocomplete": autcompleteProducts,
 	}
 	userMap["Email"] = *user.Email
 	log.Print(userMap)
