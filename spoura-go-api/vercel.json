@@ -47,6 +47,22 @@
         {
             "source": "/api/clearcart/:path*",
             "destination": "/api/clearcart.go"
+        },
+        {
+            "source": "/db/(.*)",
+            "destination": "/"
+        },
+        {
+            "source": "/test/(.*)",
+            "destination": "/"
+        },
+        {
+            "source": "/funcs/(.*)",
+            "destination": "/"
+        },
+        {
+            "source": "/types/(.*)",
+            "destination": "/"
         }
     ]
 }
