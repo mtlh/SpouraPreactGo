@@ -20,7 +20,7 @@ export function About() {
                     </div>
                     <div>
                         <img
-                            alt="Thumbnail Shoes"
+                            alt="Hero Thumbnail Shoes"
                             className="rounded-md"
                             height={500}
                             src="https://cdn.oneal.eu/tmp/image-thumbnails/_default_upload_bucket/25032/image-thumb__25032__600x600/2022_ONeal_FLOW%20SPD%20V.22_gray_blue.png"
@@ -36,10 +36,10 @@ export function About() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                             <img
-                                alt="Workshop"
-                                className="rounded-md shadow-lg"
+                                alt="Story Thumbnail Shoes"
+                                className="rounded-md"
                                 height={700}
-                                src="https://onmogul.s3.amazonaws.com/uploads/story/thumbnail/71668/b527190e8f.jpg"
+                                src="https://www.si.com/.image/t_share/MTY4MTk2MjczNTMwMDIxNzYx/image-placeholder-title.jpg"
                                 style={{
                                     aspectRatio: "700/500",
                                     objectFit: "cover",
@@ -127,9 +127,9 @@ export function About() {
                 </div>
             </section>
             <section className="bg-gray-100 dark:bg-gray-800 py-12 md:py-24">
-                <div className="container mx-auto px-4">
+                <div className="container mx-auto px-4 max-w-7xl">
                     <h2 className="text-2xl md:text-3xl font-bold mb-8">Meet Our Team</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
                         <div className="bg-white dark:bg-gray-950 shadow-md p-4 rounded-lg">
                             <img
                                 alt="John Doe"
