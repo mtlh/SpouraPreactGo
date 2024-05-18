@@ -3,6 +3,7 @@ import homeBanner from "../../assets/home_banner.jpg"
 import brandImage from "../../assets/brands.png"
 import flameImage from "../../assets/flame.png"
 import { useEffect, useState } from "preact/hooks";
+import ProductReusable from "../../components/Product";
 
 const FeaturedDataComponent = () => {
 	const [featuredData, setFeaturedData] = useState(null);
@@ -41,23 +42,7 @@ const FeaturedDataComponent = () => {
 	   <>
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center md:p-4 m-auto max-w-7xl items-stretch">
 				{featuredData.map(product => (
-				<a href={`/product/${product.URLSlug}`} class="transition ease-in-out delay-15 hover:scale-105 duration-300 md:p-10 m-auto">
-					<div class="card h-72 w-80 ring-2 rounded-xl bg-center bg-cover" style={{ backgroundImage: `url(${product.ImgURL})` }}>
-					<div class="card-body pb-40">
-						<h2 class="card-title">{product.Name}</h2>
-						{product.Type == "m" &&
-							<div class="badge bg-blue-700 border-0">Mens</div>
-						}
-						{product.Type == "k" &&
-							<div class="badge bg-blue-700 border-0">Kids</div>
-						}
-						{product.Type == "w" &&
-							<div class="badge bg-blue-700 border-0">Womens</div>
-						}
-						<div class="badge badge-secondary">£{product.Price}</div>
-					</div>
-					</div>
-				</a>
+					<ProductReusable product={product} />
 				))}
 			</div>
 		</>
@@ -125,25 +110,9 @@ const TypeDataComponent = () => {
 					}
 				</div>
 			</div>
-			<section class="grid grid-cols-1 lg:grid-cols-3 max-w-7xl rounded-lg justify-center p-10 items-center m-auto">
+			<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl rounded-lg justify-center p-10 items-center m-auto">
 				{typeData.map(product => (
-						<a href={`/product/${product.URLSlug}`} class="transition ease-in-out delay-15 hover:scale-105 duration-300 md:p-10 m-auto">
-							<div class="card h-72 w-80 ring-2 rounded-xl bg-center bg-cover" style={{ backgroundImage: `url(${product.ImgURL})` }}>
-							<div class="card-body pb-40">
-								<h2 class="card-title">{product.Name}</h2>
-								{product.Type == "m" &&
-									<div class="badge bg-blue-700 border-0">Mens</div>
-								}
-								{product.Type == "k" &&
-									<div class="badge bg-blue-700 border-0">Kids</div>
-								}
-								{product.Type == "w" &&
-									<div class="badge bg-blue-700 border-0">Womens</div>
-								}
-								<div class="badge badge-secondary">£{product.Price}</div>
-							</div>
-							</div>
-						</a>
+					<ProductReusable product={product} />
 				))}
 			</section>
 		</>

@@ -43,7 +43,7 @@ export function Header({user, setUser, loading}) {
 					</li>
 					<li tabindex={0} class="grid grid-cols-3 py-2">
 						<div class="font-semibold text-lg col-span-3">Brands</div>
-						<a class="font-base underline text-md" href="./brand/nike">Nike</a>
+						<a class="font-base underline text-md" href="/brand/nike">Nike</a>
 						<a class="font-base underline text-md" href="/brand/adidas">Adidas</a>
 						<a class="font-base underline text-md" href="/brand/puma">Puma</a>
 						<a class="font-base underline text-md" href="/brand/under-armour">Under Armour</a>
@@ -51,6 +51,9 @@ export function Header({user, setUser, loading}) {
 					<li tabindex={0} class="grid grid-cols-3 py-2">
 						<div class="font-semibold text-lg col-span-3">Collections</div>
 						<a class="font-base underline text-md" href="/collection/puma-capro">Puma Ca Pro</a>
+						<a class="font-base underline text-md" href="/collection/nike-flyknit">Nike Flyknit</a>
+						<a class="font-base underline text-md" href="/collection/adidas-nmd">Adidas NMD</a>
+						<a class="font-base underline text-md" href="/collection/puma-mb02">Puma MB.02</a>
 					</li>
 					<li tabindex={0} class="grid grid-cols-1 py-2">
 						<a class="font-semibold text-lg justify-between" href="/about">
@@ -73,8 +76,7 @@ export function Header({user, setUser, loading}) {
 					Mens
 				</div>
 				<div class="p-6 mega-menu mb-16 sm:mb-0 shadow-xl bg-gradient-to-r from-blue-500 to-blue-900">
-					<div class="grid grid-cols-5 m-auto">
-						<img src={mNav} alt="nav mens img" class="w-80 h-auto" />
+					<div class="grid grid-cols-4 max-w-7xl m-auto">
 						<div>
 							<h2 class="font-bold text-4xl flex pb-4">Mens</h2>
 							<p class="font-base text-xl w-52">Select what suits your style best...</p>
@@ -113,8 +115,7 @@ export function Header({user, setUser, loading}) {
 				<li class="hoverable hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white">
 				<div class="relative block py-6 px-4 lg:p-6 text-sm lg:text-base hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white">Womens</div>
 				<div class="p-6 mega-menu mb-16 sm:mb-0 shadow-xl bg-gradient-to-r from-blue-500 to-blue-900">
-					<div class="grid grid-cols-5 m-auto">
-						<img src={wNav} alt="nav womens img" class="w-[23rem] h-auto" />
+					<div class="grid grid-cols-4 max-w-7xl m-auto">
 						<div>
 							<h2 class="font-bold text-4xl flex pb-4">Womens</h2>
 							<p class="font-base text-xl w-52">Select what suits your style best...</p>
@@ -153,8 +154,7 @@ export function Header({user, setUser, loading}) {
 				<li class="hoverable hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white">
 				<div class="relative block py-6 px-4 lg:p-6 text-sm lg:text-base hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white">Kids</div>
 				<div class="p-6 mega-menu mb-16 sm:mb-0 shadow-xl bg-gradient-to-r from-blue-500 to-blue-900">
-					<div class="grid grid-cols-5 m-auto">
-						<img src={kNav} alt="nav kids img" class="w-64 h-auto pl-10" />
+					<div class="grid grid-cols-4 max-w-7xl m-auto">
 						<div>
 							<h2 class="font-bold text-4xl flex pb-4">Kids</h2>
 							<p class="font-base text-xl w-52">Select what suits your style best...</p>
@@ -341,7 +341,7 @@ const Autocomplete = ({ suggestions }) => {
     <div>
 		{/* @ts-ignore */}
 		<input onKeyDown={(event) => {if(event.key === 'Enter'){{ if (filteredSuggestions.length == 1) { location.href = "/product/" + filteredSuggestions[0].URLSlug } else { location.href = "/shop?query=" + event.target.value }}}}}
-			type="text" class="rounded-lg h-auto p-2 bg-slate-200 w-60 md:flex hidden"
+			type="text" class="rounded-lg h-auto p-2 bg-slate-200 w-52 md:flex hidden"
 			list="autcompleteProducts" placeholder="Search..." onChange={onChange} value={userInput}
 		/>
 		{showSuggestions && userInput && 

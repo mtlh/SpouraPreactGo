@@ -1,6 +1,7 @@
 import { useLocation } from "preact-iso"
 import { useEffect, useState } from "preact/hooks";
 import { LoadingSpinnerCenter } from "../../components/LoadingSpinner";
+import ProductReusable from "../../components/Product";
 
 
 export function Shop () {
@@ -54,13 +55,13 @@ export function Shop () {
     }
 
     return (
-        <div class="grid">
-            <div class="lg:grid lg:fixed justify-center m-auto items-stretch max-w-7xl min-w-full bg-white sticky pt-4 z-10">
-                <div class="grid grid-cols-1 md:grid-cols-3 p-2 gap-4 m-auto">
+        <>
+            <div class="lg:grid lg:fixed justify-center m-auto items-stretch max-w-7xl min-w-full bg-white sticky z-10 pt-4">
+                <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-4 m-auto">
                     {/* @ts-ignore */}
-                    <input type="text" class="rounded-lg h-auto p-2 bg-slate-200 lg:w-80 md:w-60 w-96 m-auto" onKeyDown={(event) => {if(event.key === 'Enter'){{setSearchInput(event.target.value)}}}} value={searchInput} placeholder="Search..." />
+                    <input type="text" class="rounded-lg h-auto p-2 bg-slate-200 w-96 lg:w-80 m-auto" onKeyDown={(event) => { if (event.key === 'Enter') { { setSearchInput(event.target.value); } } } } value={searchInput} placeholder="Search..." />
                     {/* @ts-ignore */}
-                    <select value={typeInput} onChange={(event) => setTypeInput(event.target.value)} class="rounded-lg h-auto p-2 bg-slate-200 lg:w-80 md:w-60 w-96 m-auto">
+                    <select value={typeInput} onChange={(event) => setTypeInput(event.target.value)} class="rounded-lg h-auto p-2 bg-slate-200 w-96 lg:w-80 m-auto">
                         <option value="m">Mens</option>
                         <option value="w">Womens</option>
                         <option value="k">Kids</option>
@@ -70,57 +71,39 @@ export function Shop () {
                         {/* <AutoComplete onChange={filterChange} items="{brand_arr}" bind:selectedItem="{brand_select}" placeholder="Brand" class="rounded-lg h-auto p-2 bg-slate-200 w-80" /> */}
                     {/* </div> */}
                     {/* @ts-ignore */}
-                    <select value={sortInput} onChange={(event) => setSortInput(event.target.value)} class="rounded-lg h-auto p-2 bg-slate-200 lg:w-80 md:w-60 w-96 m-auto">
+                    <select value={sortInput} onChange={(event) => setSortInput(event.target.value)} class="rounded-lg h-auto p-2 bg-slate-200 w-96 lg:w-80 m-auto">
                         <option value="lowHigh">Low -{">"} High</option>
                         <option value="highLow">High -{">"} Low</option>
                         <option value="any">Any</option>
                     </select>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center m-auto items-stretch mt-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center m-auto max-w-7xl items-stretch">
                 {!searchLoading ?
-                    <>
-                        <p class="col-span-4 text-center text-gray-600 mt-10">{shopData.resultCount} results found</p>
-                        {shopData &&
-                            <>
-                                {shopData.products.map(product => (
-                                    <div class="my-6 hover:scale-105 ease-in-out transition">
-                                        <a href={"/product/" + product.URLSlug} class="m-auto">
-                                            <div class="card h-72 w-80 bg-center bg-cover -z-10" style={{ backgroundImage: 'url(' + product.ImgURL + ')'}}>
-                                                <div class="card-body pb-40">
-                                                    <h2 class="card-title">{product.Name}</h2>
-                                                    {product.Type == "m" &&
-                                                        <div class="badge bg-blue-700 border-0">Mens</div>
-                                                    }
-                                                    {product.Type == "k" &&
-                                                        <div class="badge bg-blue-700 border-0">Kids</div>
-                                                    }
-                                                    {product.Type == "w" &&
-                                                        <div class="badge bg-blue-700 border-0">Womens</div>
-                                                    }
-                                                    <div class="badge badge-secondary">£{product.Price}</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                ))}
-                            </>
-                        }
-                        <div class="flex justify-center my-10 m-auto col-span-4">
-                            <button class="rounded-l-lg h-auto p-2 bg-slate-200 w-40 m-auto text-center" onClick={handlePageDecrement}>-</button>
-                            <p class="h-auto p-2 bg-slate-200 w-10 m-auto text-center">{pageInput}/{Math.ceil(shopData.resultCount/12)}</p>
-                            <button class="rounded-r-lg h-auto p-2 bg-slate-200 w-40 m-auto text-center" onClick={handlePageIncrement}>+</button>
-                        </div>
-                    </>
-                    :
-                    <>
-                        <div class="col-span-4">
-                            <LoadingSpinnerCenter />
-                        </div>
-                    </>
-                }
+                        <>
+                            <p class="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4 text-center text-gray-600 lg:mt-20">{shopData.resultCount} results found</p>
+                            {shopData &&
+                                <>
+                                    {shopData.products.map(product => (
+                                        <ProductReusable product={product} />
+                                    ))}
+                                </>
+                            }
+                        </>
+                        :
+                        <>
+                            <div class="col-span-4">
+                                <LoadingSpinnerCenter />
+                            </div>
+                        </>
+                    }
             </div>
-        </div>
+            <div class="flex justify-center my-10 m-auto col-span-4 max-w-xs">
+                <button class="rounded-l-lg h-auto p-2 bg-slate-200 w-40 m-auto text-center" onClick={handlePageDecrement}>-</button>
+                <p class="h-auto p-2 bg-slate-200 w-10 m-auto text-center">{pageInput}/{Math.ceil(shopData.resultCount / 12)}</p>
+                <button class="rounded-r-lg h-auto p-2 bg-slate-200 w-40 m-auto text-center" onClick={handlePageIncrement}>+</button>
+            </div>
+        </>
     )
 }
 
