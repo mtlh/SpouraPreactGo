@@ -130,29 +130,30 @@ export default function Profile({user, setuser}: UserProp) {
   }
 
   return (
-        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 max-w-7xl mx-auto">
+        <main className="flex flex-1 flex-col p-4 md:p-6 max-w-7xl mx-auto">
           {user.Email && user.Email !== "null" ?
             <>
               <h1 className="font-bold text-transparent md:text-7xl text-3xl bg-clip-text bg-gradient-to-r from-blue-500 to-blue-900 md:py-8">
                 Hi {user.Nickname}!
               </h1>
-              <div className="flex items-center gap-4">
-                <h1 className="font-semibold text-lg md:text-xl">Order History</h1>
-              </div><div className="border shadow-sm rounded-lg p-2">
-                  <table class="w-full">
-                    <thead>
+              <div className="flex items-center">
+                <h1 className="font-semibold text-xl italic underline">Order History</h1>
+              </div>
+              <div className="border shadow-sm rounded-lg p-6 min-h-96">
+                  <table class="w-full text-left text-lg">
+                    <thead class="text-2xl">
                       <tr>
-                        <th class="min-w-[150px]">Product</th>
-                        <th class="hidden md:table-cell">Quantity</th>
-                        <th class="hidden md:table-cell">Size</th>
-                        <th class="hidden md:table-cell">Date</th>
+                        <th class="table-cell py-2 pr-2">Product</th>
+                        <th class="table-cell py-2 pr-2">Quantity</th>
+                        <th class="table-cell py-2 pr-2">Size</th>
+                        <th class="table-cell py-2 pr-2">Date</th>
                       </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 m-auto text-center">
+                    <tbody class="divide-y divide-gray-200 m-auto">
                       {order.map((item) => (
-                        <tr key={item.producturlslug}>
+                        <tr key={item.producturlslug} class="my-2">
                           <td>
-                            <a href={"/product/" + item.producturlslug}>
+                            <a href={"/product/" + item.producturlslug} class="hover:underline">
                               {item.producturlslug}
                             </a>
                           </td>
@@ -164,7 +165,7 @@ export default function Profile({user, setuser}: UserProp) {
                     </tbody>
                   </table>
                 </div>
-                <button onClick={HandleLogout}>Logout</button>
+                <button onClick={HandleLogout} class="mt-10 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Logout</button>
             </>
           :
             <>

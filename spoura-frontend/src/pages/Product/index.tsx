@@ -34,6 +34,17 @@ export function Product ({user, setUser, loading}) {
             setIsFavourite(user.Favourites.some(item => item.urlslug === urlslug[urlslug.length-1]))
         }
     }, [user])
+
+    const handleIncrementQuantity = () => {
+        if (quantity < 9) {
+            setQuantity(quantity + 1);
+        }
+    }
+    const handleDecrementQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    };
   
 	if (error) {
 	  return <div>Error: {error}</div>;
@@ -97,9 +108,9 @@ export function Product ({user, setUser, loading}) {
                     </div>
                     <p class="p-2">Quantity: </p>
                     <div class="flex space-x-2 rounded-xl bg-gray-200 p-2 w-40 justify-center">
-                        <button class="w-4 p-2" onClick={()=> setQuantity(quantity-1)}>-</button>
+                        <button class="w-4 p-2" onClick={handleDecrementQuantity}>-</button>
                         <span class="w-4 p-2">{quantity}</span>
-                        <button class="w-4 p-2" onClick={()=> setQuantity(quantity+1)}>+</button>
+                        <button class="w-4 p-2" onClick={handleIncrementQuantity}>+</button>
                     </div>
                     <div class="flex space-x-2 rounded-xl p-2 m-auto">
                         <button 
