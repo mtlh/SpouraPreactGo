@@ -54,7 +54,7 @@ export function Product ({user, setUser, loading}) {
 	  return <LoadingSpinnerCenter />
 	}
 
-    console.log(productData)
+    // console.log(productData)
   
 	return (
 	   <>

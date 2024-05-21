@@ -54,6 +54,11 @@ export function Shop () {
         }
     }
 
+    let pageCount = Math.ceil(shopData.resultCount/12);
+    if (pageCount < 1) {
+        pageCount = 1
+    }
+
     return (
         <>
             <div class="lg:grid lg:fixed justify-center m-auto items-stretch max-w-7xl min-w-full bg-white sticky z-10 pt-4">
@@ -100,7 +105,7 @@ export function Shop () {
             </div>
             <div class="flex justify-center my-10 m-auto col-span-4 max-w-xs">
                 <button class="rounded-l-lg h-auto p-2 bg-slate-200 w-40 m-auto text-center" onClick={handlePageDecrement}>-</button>
-                <p class="h-auto p-2 bg-slate-200 w-10 m-auto text-center">{pageInput}/{Math.ceil(shopData.resultCount / 12)}</p>
+                <p class="h-auto p-2 bg-slate-200 w-10 m-auto text-center">{pageInput}/{pageCount}</p>
                 <button class="rounded-r-lg h-auto p-2 bg-slate-200 w-40 m-auto text-center" onClick={handlePageIncrement}>+</button>
             </div>
         </>

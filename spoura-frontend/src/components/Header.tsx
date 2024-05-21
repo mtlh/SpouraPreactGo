@@ -1,7 +1,4 @@
 import './header.css'
-import kNav from '../assets/kids_nav.png';
-import wNav from '../assets/womens_nav.png';
-import mNav from '../assets/banner-right-image.png';
 import { FavouriteToggle } from './FavouriteToggle';
 import { updateCart, updateFavourites } from '../pages/Product';
 import { useEffect, useState } from 'preact/hooks';
@@ -296,63 +293,103 @@ export function Header({user, setUser, loading}) {
 	);
 }
 
+function filterSuggestions(suggestions: Array<any>, userInput) {
+	let filteredSuggestions = suggestions.filter(
+		suggestion => suggestion.Name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+	)
+	filteredSuggestions.unshift({Name: "Custom Search", URLSlug: "custom-search"});
+	if (filteredSuggestions.length > 10) {
+		filteredSuggestions = filteredSuggestions.slice(0, 10);
+	}
+	return filteredSuggestions;
+}
 
 const Autocomplete = ({ suggestions }) => {
-  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [userInput, setUserInput] = useState("");
-
-  const onChange = (e) => {
-    const userInput = e.target.value;
-    const filteredSuggestions = suggestions.filter(
-      suggestion => suggestion.Name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    );
-
-    setUserInput(e.target.value);
-    setFilteredSuggestions(filteredSuggestions);
-    setShowSuggestions(true);
-  };
-
-  const onClick = (e) => {
-    setFilteredSuggestions([]);
-    setUserInput(e.target.id);
-    setShowSuggestions(false);
-  };
-
-  const SuggestionsListComponent = () => {
-    return filteredSuggestions.length ? (
-      <ul className="suggestions">
-        {filteredSuggestions.map((suggestion, index) => {
-          return (
-            <option key={index} onClick={onClick} class="w-40 bg-gray-50 text-black" id={suggestion.URLSlug}>
-              {suggestion.Name}
-            </option>
-          );
-        })}
-      </ul>
-    ) : (
-      <div className="no-suggestions">
-        <em>No suggestions!</em>
-      </div>
-    );
-  };
-
-  return (
-    <div>
-		{/* @ts-ignore */}
-		<input onKeyDown={(event) => {if(event.key === 'Enter'){{ if (filteredSuggestions.length == 1) { location.href = "/product/" + filteredSuggestions[0].URLSlug } else { location.href = "/shop?query=" + event.target.value }}}}}
-			type="text" class="rounded-lg h-auto p-2 bg-slate-200 w-52 md:flex hidden"
-			list="autcompleteProducts" placeholder="Search..." onChange={onChange} value={userInput}
-		/>
-		{showSuggestions && userInput && 
-			<>
-				<datalist id="autcompleteProducts">
-					<SuggestionsListComponent />
-				</datalist>
-			</>
+	const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+	const [showSuggestions, setShowSuggestions] = useState(false);
+	const [userInput, setUserInput] = useState("");
+	const [activeSuggestion, setActiveSuggestion] = useState(0);
+  
+	const onChange = (e) => {
+	  const userInput = e.target.value;
+	  setUserInput(userInput);
+	  setFilteredSuggestions(filterSuggestions(suggestions, userInput));
+	  setShowSuggestions(true);
+	  setActiveSuggestion(0);
+	};
+  
+	const onClick = (e) => {
+	  setUserInput(e.currentTarget.getAttribute('data-name'));
+	  setShowSuggestions(false);
+	};
+  
+	const onKeyDown = (e) => {
+		if (e.key === 'Enter') {
+			const filteredSuggestions = filterSuggestions(suggestions, userInput);
+			// console.log(showSuggestions, userInput, filteredSuggestions)
+			if (filteredSuggestions.length == 2 && !showSuggestions) {
+				window.location.href = `/product/${filteredSuggestions[1].URLSlug}`;
+				// console.log(filteredSuggestions[0].URLSlug)
+			} else if (showSuggestions) {
+				if (filteredSuggestions[activeSuggestion].Name == "Custom Search") {
+					window.location.href = `/shop?query=${userInput}`;
+				} else {
+					window.location.href = `/product/${filteredSuggestions[activeSuggestion].URLSlug}`;
+				}
+			} else {
+				window.location.href = `/shop?query=${userInput}`;
+				// console.log(userInput)
+			}
+		} else if (e.key === 'ArrowDown') {
+			if (activeSuggestion < filteredSuggestions.length - 1) {
+				setActiveSuggestion(activeSuggestion + 1);
+			}
+		} else if (e.key === 'ArrowUp') {
+			if (activeSuggestion > 0) {
+				setActiveSuggestion(activeSuggestion - 1);
+			}
+		} else if (e.key === 'Tab') {
+			setShowSuggestions(false);
 		}
-    </div>
-  );
+	};
+  
+	const SuggestionsListComponent = () => {
+	  return filteredSuggestions.length ? (
+		<ul className="suggestions bg-white border border-gray-300 rounded mt-2 absolute z-10 w-52">
+		  {filteredSuggestions.map((suggestion, index) => {
+			const className = index === activeSuggestion ? "suggestion-active bg-blue-200" : "";
+			return (
+			  <li key={index} data-name={suggestion.Name} onClick={onClick} className={`p-2 cursor-pointer ${className}`}>
+				{suggestion.Name}
+			  </li>
+			);
+		  })}
+		</ul>
+	  ) : (
+		<div className="no-suggestions p-2">
+		  <em>No suggestions!</em>
+		</div>
+	  );
+	};
+  
+	return (
+	  <div className="relative">
+		<input
+		  type="text"
+		  className="rounded-lg p-2 bg-slate-200 w-52"
+		  placeholder="Search..."
+		  onChange={onChange}
+		  onKeyDown={onKeyDown}
+		  value={userInput}
+		  aria-autocomplete="list"
+		  aria-controls="autocomplete-list"
+		  aria-activedescendant={`autocomplete-item-${activeSuggestion}`}
+		/>
+		{showSuggestions && userInput && (
+		  <SuggestionsListComponent />
+		)}
+	  </div>
+	);
 };
-
+  
 export default Autocomplete;
