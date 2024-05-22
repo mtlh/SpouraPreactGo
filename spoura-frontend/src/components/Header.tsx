@@ -3,17 +3,19 @@ import { FavouriteToggle } from './FavouriteToggle';
 import { updateCart, updateFavourites } from '../pages/Product';
 import { useEffect, useState } from 'preact/hooks';
 import { RemoveFromCart } from './CartAction';
+import { LoadingSpinner } from './LoadingSpinner';
 
 export function Header({user, setUser, loading}) {
 	// console.log(user, loading)
 
 	const [subtotal, setSubtotal] = useState(0);
+	const [removeCartLoading, setRemoveCartLoading] = useState(false);
 	useEffect(() => {
 		let runningtotal = 0;
 		for (let x in user.Cart) {
 			runningtotal += parseFloat(user.Cart[x].price)
 		}
-		setSubtotal(runningtotal)
+		setSubtotal(parseFloat(runningtotal.toFixed(2)))
 	}, [user]);
 
 	return (
@@ -226,9 +228,15 @@ export function Header({user, setUser, loading}) {
 													<div class="badge badge-secondary">£{product.price}</div>
 												</div>
 											</a>
-											<a onClick={async ()=> updateFavourites(await FavouriteToggle(product.urlslug), setUser)} class="m-auto">
-												<svg class="h-6 w-6 hover:cursor-pointer" fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"><path d="M512.481 421.906L850.682 84.621c25.023-24.964 65.545-24.917 90.51.105s24.917 65.545-.105 90.51L603.03 512.377 940.94 850c25.003 24.984 25.017 65.507.033 90.51s-65.507 25.017-90.51.033L512.397 602.764 174.215 940.03c-25.023 24.964-65.545 24.917-90.51-.105s-24.917-65.545.105-90.51l338.038-337.122L84.14 174.872c-25.003-24.984-25.017-65.507-.033-90.51s65.507-25.017 90.51-.033L512.48 421.906z"></path></g></svg>
-											</a>
+											{removeCartLoading ?
+												<div class="m-auto">
+													<LoadingSpinner width="2rem" height="2rem" />
+												</div>
+												:
+												<a onClick={async ()=> updateFavourites(await FavouriteToggle(product.urlslug), setUser)} class="m-auto">
+													<svg class="h-6 w-6 hover:cursor-pointer" fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"><path d="M512.481 421.906L850.682 84.621c25.023-24.964 65.545-24.917 90.51.105s24.917 65.545-.105 90.51L603.03 512.377 940.94 850c25.003 24.984 25.017 65.507.033 90.51s-65.507 25.017-90.51.033L512.397 602.764 174.215 940.03c-25.023 24.964-65.545 24.917-90.51-.105s-24.917-65.545.105-90.51l338.038-337.122L84.14 174.872c-25.003-24.984-25.017-65.507-.033-90.51s65.507-25.017 90.51-.033L512.48 421.906z"></path></g></svg>
+												</a>
+											}
 										</div>
 									))}
 								</>
@@ -269,9 +277,15 @@ export function Header({user, setUser, loading}) {
 														<p class="badge badge-secondary ml-2">Quantity - {product.quantity}</p>
 													</div>
 												</a>
-												<a onClick={async ()=> updateCart(await RemoveFromCart(product.urlslug, product.quantity, product.size), setUser)} class="m-auto">
-													<svg class="h-6 w-6 hover:cursor-pointer" fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"><path d="M512.481 421.906L850.682 84.621c25.023-24.964 65.545-24.917 90.51.105s24.917 65.545-.105 90.51L603.03 512.377 940.94 850c25.003 24.984 25.017 65.507.033 90.51s-65.507 25.017-90.51.033L512.397 602.764 174.215 940.03c-25.023 24.964-65.545 24.917-90.51-.105s-24.917-65.545.105-90.51l338.038-337.122L84.14 174.872c-25.003-24.984-25.017-65.507-.033-90.51s65.507-25.017 90.51-.033L512.48 421.906z"></path></g></svg>
-												</a>
+												{removeCartLoading ?
+													<div class="m-auto">
+														<LoadingSpinner width="2rem" height="2rem" />
+													</div>
+													:
+													<a onClick={async ()=> { setRemoveCartLoading(true); updateCart(await RemoveFromCart(product.urlslug, product.quantity, product.size), setUser, setRemoveCartLoading)}} class="m-auto">
+														<svg class="h-6 w-6 hover:cursor-pointer" fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"><path d="M512.481 421.906L850.682 84.621c25.023-24.964 65.545-24.917 90.51.105s24.917 65.545-.105 90.51L603.03 512.377 940.94 850c25.003 24.984 25.017 65.507.033 90.51s-65.507 25.017-90.51.033L512.397 602.764 174.215 940.03c-25.023 24.964-65.545 24.917-90.51-.105s-24.917-65.545.105-90.51l338.038-337.122L84.14 174.872c-25.003-24.984-25.017-65.507-.033-90.51s65.507-25.017 90.51-.033L512.48 421.906z"></path></g></svg>
+													</a>
+												}
 											</div>
 										))}
 									</>
