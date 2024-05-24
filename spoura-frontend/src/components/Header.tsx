@@ -225,7 +225,7 @@ export function Header({user, setUser, loading}) {
 											<a href={"/product/" + product.urlslug} class="transition ease-in-out delay-15 duration-300 py-2 col-span-5">
 												<div class="text-lg">
 													<h2 class="text-lg">{product.name}</h2>
-													<div class="badge badge-secondary">£{product.price}</div>
+													<div class="badge badge-secondary bg-blue-300 border-0">£{product.price}</div>
 												</div>
 											</a>
 											{removeCartLoading ?

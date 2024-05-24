@@ -5,24 +5,27 @@ import (
 	"testing"
 )
 
+// TestFeaturedReturnNumber tests the number of products returned (1-10)
 func TestFeaturedReturnNumber(t *testing.T) {
 	for x := 1; x < 10; x++ {
-		data := setup("https://spoura-go-api.vercel.app/api/featured/" + strconv.Itoa(x))
+		data := setupJSON("https://spoura-go-api.vercel.app/api/featured/"+strconv.Itoa(x), t)
 		if len(data) != x {
 			t.Errorf("Number of products returned is not %d: %d", x, len(data))
 		}
 	}
 }
 
+// TestFeaturedDefaultReturnNumber tests the default number of products returned
 func TestFeaturedDefaultReturnNumber(t *testing.T) {
-	data := setup("https://spoura-go-api.vercel.app/api/featured/")
+	data := setupJSON("https://spoura-go-api.vercel.app/api/featured/", t)
 	if len(data) != 3 {
 		t.Errorf("Number of products returned is not %d: %d", 3, len(data))
 	}
 }
 
+// TestFeaturedProductFields tests the fields of the products returned
 func TestFeaturedProductFields(t *testing.T) {
-	data := setup("https://spoura-go-api.vercel.app/api/featured/")
+	data := setupJSON("https://spoura-go-api.vercel.app/api/featured/", t)
 	for _, product := range data {
 		if product["Name"] == nil {
 			t.Error("Product has no name.")
