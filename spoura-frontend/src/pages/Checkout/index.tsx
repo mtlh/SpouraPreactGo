@@ -71,7 +71,7 @@ const CheckoutForm = () => {
             //`Elements` instance that was used to create the Payment Element
             elements,
             confirmParams: {
-                return_url:  "https://spoura.mtlh.dev/payment",
+                return_url:  "https://spoura-frontend.vercel.app/payment",
             },
         });
 
