@@ -1,11 +1,11 @@
 export function Contact () {
     return (
-        <div className="bg-white dark:bg-gray-950 py-12 md:py-20 max-w-7xl m-auto">
+        <div className="bg-white py-12 md:py-20 max-w-7xl m-auto">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                 <div className="space-y-6 col-span-2">
                     <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Get in Touch</h1>
-                    <p className="text-gray-500 dark:text-gray-400 max-w-md">
+                    <p className="text-gray-500 max-w-md">
                     Have a question or want to work together? Fill out the form below and we'll get back to you as soon as
                     possible.
                     </p>
@@ -16,7 +16,7 @@ export function Contact () {
                             Name
                         </label>
                         <input
-                            className="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
+                            className="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
                             id="name"
                             name="name"
                             placeholder="Enter your name"
@@ -28,7 +28,7 @@ export function Contact () {
                             Email
                         </label>
                         <input
-                            className="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
+                            className="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
                             id="email"
                             placeholder="Enter your email"
                             type="email"
@@ -41,7 +41,7 @@ export function Contact () {
                         Message
                         </label>
                         <textarea
-                        className="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
+                        className="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
                         id="message"
                         placeholder="Enter your message"
                         rows={4}
@@ -49,7 +49,7 @@ export function Contact () {
                         />
                     </div>
                     <button
-                        className="inline-flex items-center justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-600"
+                        className="inline-flex items-center justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                         type="submit"
                     >
                         Submit
@@ -62,7 +62,7 @@ export function Contact () {
                     <div className="space-y-1">
                         <div className="flex items-center space-x-2">
                         <svg
-                            className="h-5 w-5 text-blue-600 dark:text-blue-500"
+                            className="h-5 w-5 text-blue-600"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -81,11 +81,11 @@ export function Contact () {
                             strokeWidth={2}
                             />
                         </svg>
-                        <span className="text-gray-500 dark:text-gray-400">Leicester</span>
+                        <span className="text-gray-500">Leicester</span>
                         </div>
                         <div className="flex items-center space-x-2">
                         <svg
-                            className="h-5 w-5 text-blue-600 dark:text-blue-500"
+                            className="h-5 w-5 text-blue-600"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -98,7 +98,7 @@ export function Contact () {
                             strokeWidth={2}
                             />
                         </svg>
-                        <span className="text-gray-500 dark:text-gray-400 hover:underline hover:cursor-pointer" href="mailto:matthewtlharvey@gmail.com">matthewtlharvey@gmail.com</span>
+                        <span className="text-gray-500 hover:underline hover:cursor-pointer" href="mailto:matthewtlharvey@gmail.com">matthewtlharvey@gmail.com</span>
                         </div>
                     </div>
                     </div>

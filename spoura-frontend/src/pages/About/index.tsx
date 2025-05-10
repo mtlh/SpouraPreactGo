@@ -126,13 +126,13 @@ export function About() {
                     </div>
                 </div>
             </section>
-            <section className="bg-gray-100 dark:bg-gray-800 py-12 md:py-24">
+            <section className="bg-white py-12 md:py-24">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <h2 className="text-2xl md:text-3xl font-bold mb-8">Meet Our Team</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-                        <div className="bg-white dark:bg-gray-950 shadow-md p-4 rounded-lg">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-10">
+                        <div className="bg-white shadow-md p-4 rounded-lg">
                             <img
-                                alt="John Doe"
+                                alt="Matthew Harvey Profile"
                                 height="auto"
                                 class="w-full h-60 rounded-lg"
                                 src="https://avatars.githubusercontent.com/u/54061093?v=4"
@@ -142,10 +142,10 @@ export function About() {
                                 width="auto"
                             />
                             <h3 className="text-lg font-bold my-1">Matthew Harvey</h3>
-                            <p className="text-gray-500 dark:text-gray-400 my-1">Developer</p>
+                            <p className="text-gray-500 my-1">Developer</p>
                             <div class="flex gap-3 my-1">
                                 <a class="link link-hover" href="https://github.com/mtlh" target="_blank" rel="noreferrer">Github</a>
-                                <a class="link link-hover" href="https://mtlh.dev/" target="_blank" rel="noreferrer">Portfolio</a>
+                                <a class="link link-hover" href="https://mtlh.vercel.app/" target="_blank" rel="noreferrer">Portfolio</a>
                                 <a class="link link-hover" href="https://www.linkedin.com/in/mtlh/" target="_blank" rel="noreferrer">Linkedin</a>
                             </div>
                         </div>

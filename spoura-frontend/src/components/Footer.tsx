@@ -25,7 +25,7 @@ export function Footer () {
                     <span class="footer-title">Matthew Harvey</span> 
                     <br />
                     <a class="link link-hover p-2" href="https://github.com/mtlh" target="_blank" rel="noreferrer">Github</a>
-                    <a class="link link-hover p-2" href="https://mtlh.dev/" target="_blank" rel="noreferrer">Portfolio</a>
+                    <a class="link link-hover p-2" href="https://mtlh.vercel.app/" target="_blank" rel="noreferrer">Portfolio</a>
                     <a class="link link-hover p-2" href="https://www.linkedin.com/in/mtlh/" target="_blank" rel="noreferrer">Linkedin</a>
                 </div>
             </div> 
