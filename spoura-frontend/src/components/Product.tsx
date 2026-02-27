@@ -6,15 +6,15 @@ export default function ProductReusable({product}) {
                     <div class="card-body pb-40">
                         <h2 class="card-title">{product.Name}</h2>
                         {product.Type == "m" &&
-                            <div class="badge bg-blue-700 border-0">Mens</div>
+                            <div class="badge bg-blue-700 border-0 text-white">Mens</div>
                         }
                         {product.Type == "k" &&
-                            <div class="badge bg-blue-700 border-0">Kids</div>
+                            <div class="badge bg-blue-700 border-0 text-white">Kids</div>
                         }
                         {product.Type == "w" &&
-                            <div class="badge bg-blue-700 border-0">Womens</div>
+                            <div class="badge bg-blue-700 border-0 text-white">Womens</div>
                         }
-                        <div class="badge badge-secondary">£{product.Price}</div>
+                        <div class="badge badge-secondary text-white">£{product.Price}</div>
                     </div>
                 </div>
             </a>

@@ -57,15 +57,15 @@ export function Product ({user, setUser, loading, path}: {user: any, setUser: an
                 <div class="mx-6 my-2">
                     <h1 class="text-4xl font-semibold pb-4">{productData.Name}</h1>
                     {productData.Type == "m" &&
-                        <div class="badge bg-blue-700 text-lg border-0 p-4">Mens</div>
+                        <div class="badge bg-blue-700 text-lg border-0 p-4 text-white">Mens</div>
                     }
                     {productData.Type == "k" &&
-                        <div class="badge bg-blue-700 text-lg border-0 p-4">Kids</div>
+                        <div class="badge bg-blue-700 text-lg border-0 p-4 text-white">Kids</div>
                     }
                     {productData.Type == "w" &&
-                        <div class="badge bg-blue-700 text-lg border-0 p-4">Women</div>
+                        <div class="badge bg-blue-700 text-lg border-0 p-4 text-white">Women</div>
                     }
-                    <div class="badge badge-secondary text-lg border-0 p-4 mx-2">£{productData.Price}</div>
+                    <div class="badge badge-secondary text-lg border-0 p-4 mx-2 text-white">£{productData.Price}</div>
                     <div class="flex space-x-2 rounded-xl py-4 m-auto">
                         <p>{productData.Description}</p>
                     </div>

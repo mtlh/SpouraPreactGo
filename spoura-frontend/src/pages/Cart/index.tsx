@@ -37,7 +37,7 @@ export function Cart ({user, setuser}: UserProp) {
                                     <div class="text-3xl m-auto">
                                         <a href={`/product/${product.urlslug}`} data-sveltekit-reload class="transition ease-in-out delay-15 duration-300">
                                             <h2 class="w-full">{product.name}</h2>
-                                            <div class="badge badge-secondary text-xl p-4">£{product.price}</div>
+                                            <div class="badge badge-secondary text-xl p-4 text-white">£{product.price}</div>
                                             <div class="hidden">{product.price}</div>
                                         </a>
                                     </div>
