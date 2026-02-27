@@ -98,7 +98,7 @@ export function Contact () {
                             strokeWidth={2}
                             />
                         </svg>
-                        <span className="text-gray-500 hover:underline hover:cursor-pointer" href="mailto:matthewtlharvey@gmail.com">matthewtlharvey@gmail.com</span>
+                        <a className="text-gray-500 hover:underline hover:cursor-pointer" href="mailto:matthewtlharvey@gmail.com">matthewtlharvey@gmail.com</a>
                         </div>
                     </div>
                     </div>

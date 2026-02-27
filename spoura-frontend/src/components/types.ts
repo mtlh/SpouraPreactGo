@@ -29,10 +29,12 @@ export type user = {
 
 export interface UserProp {
 	user: user,
-	setuser: any
+	setuser: any,
+	path?: string
 }
 export interface UserOnlyProp {
 	user: user,
+	path?: string
 }
 
 export type AutocompleteProduct = {

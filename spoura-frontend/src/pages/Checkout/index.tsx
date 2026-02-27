@@ -89,7 +89,7 @@ const CheckoutForm = () => {
         <>
             <form onSubmit={handleSubmit} class="flex flex-col justify-end w-full">
                 <PaymentElement />
-                <button disabled={!stripe} class="btn bg-gradient-to-r from-blue-500 to-blue-900 border-0 rounded-lg m-auto w-full text-center mt-2">Pay</button>
+                <button disabled={!stripe} class="btn bg-gradient-to-r from-blue-500 to-blue-900 border-0 rounded-lg m-auto w-full text-center mt-2 text-white">Pay</button>
             </form>
             <div class="text-gray-400 text-left mt-4 text-md">
                 <p class="underline text-red-400">Please note that this is a test payment and you will not be charged.</p>

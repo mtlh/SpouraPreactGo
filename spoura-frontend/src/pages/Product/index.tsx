@@ -4,7 +4,7 @@ import { FavouriteToggle } from "../../components/FavouriteToggle";
 import { AddToCart } from "../../components/CartAction";
 import { LoadingSpinner, LoadingSpinnerCenter } from "../../components/LoadingSpinner";
 
-export function Product ({user, setUser, loading}) {
+export function Product ({user, setUser, loading, path}: {user: any, setUser: any, loading?: boolean, path?: string}) {
 	const [productData, setProductData] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState(12);

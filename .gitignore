@@ -2,3 +2,6 @@
 /spoura-go-api/.vercel
 /spoura-frontend/.env
 /spoura-frontend/.vercel
+
+# Claude
+.claude

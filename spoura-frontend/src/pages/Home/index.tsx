@@ -96,17 +96,17 @@ const TypeDataComponent = () => {
 					{currenttype == "w" ? 
 						<button onClick={() => changeType("w")} class="px-6 py-2 my-2 w-[80%] m-auto btn bg-gradient-to-r from-slate-200 to-slate-400 text-black border-0 rounded-lg shadow-xl">Womens</button>
 					:
-						<button onClick={() => changeType("w")} class="px-6 py-2 my-2 w-[80%] m-auto btn bg-gradient-to-r from-blue-500 to-blue-900 border-0 rounded-lg">Womens</button>
+						<button onClick={() => changeType("w")} class="px-6 py-2 my-2 w-[80%] m-auto btn bg-gradient-to-r from-blue-500 to-blue-900 border-0 rounded-lg text-white">Womens</button>
 					}
 					{currenttype == "m" ? 
 						<button onClick={() => changeType("m")} class="px-6 py-2 my-2 w-[80%] m-auto btn bg-gradient-to-r from-slate-200 to-slate-400 text-black border-0 rounded-lg shadow-xl">Mens</button>
 					:
-						<button onClick={() => changeType("m")} class="px-6 py-2 my-2 w-[80%] m-auto btn bg-gradient-to-r from-blue-500 to-blue-900 border-0 rounded-lg">Mens</button>
+						<button onClick={() => changeType("m")} class="px-6 py-2 my-2 w-[80%] m-auto btn bg-gradient-to-r from-blue-500 to-blue-900 border-0 rounded-lg text-white">Mens</button>
 					}
 					{currenttype == "k" ? 
 						<button onClick={() => changeType("k")} class="px-6 py-2 my-2 w-[80%] m-auto btn bg-gradient-to-r from-slate-200 to-slate-400 text-black border-0 rounded-lg shadow-xl">Kids</button>
 					:
-						<button onClick={() => changeType("k")} class="px-6 py-2 my-2 w-[80%] m-auto btn bg-gradient-to-r from-blue-500 to-blue-900 border-0 rounded-lg">Kids</button>
+						<button onClick={() => changeType("k")} class="px-6 py-2 my-2 w-[80%] m-auto btn bg-gradient-to-r from-blue-500 to-blue-900 border-0 rounded-lg text-white">Kids</button>
 					}
 				</div>
 			</div>
@@ -126,9 +126,9 @@ export function Home() {
 			<div class="hero bg-fixed bg-center bg-cover" style={{ backgroundImage: `url(${homeBanner})`, minHeight: '100vh' }}>
 				<div class="hero-content grid grid-cols-1 md:grid-cols-2 lg:flex-row-reverse">
 					<div class="p-10 ml-2 rounded-3xl bg-opacity-100 relative">
-						<h1 class="mb-5 text-5xl font-bold">Welcome to <em class="font-extrabold text-transparent text-7xl md:text-9xl bg-clip-text bg-gradient-to-r from-blue-500 to-blue-900">Spoura</em></h1>
+						<h1 class="mb-5 text-5xl font-bold">Welcome to <em class="font-extrabold text-transparent text-7xl md:text-9xl bg-clip-text bg-gradient-to-r from-blue-500 to-blue-900">SPOURA</em></h1>
 						<p class="mb-5 text-3xl">Selling the best shoes by the biggest brands since 2013.</p>
-						<a class="btn bg-gradient-to-r from-blue-500 to-blue-900 border-0 rounded-lg hover:scale-110" href="/shop">All Products</a>
+						<a class="btn bg-gradient-to-r from-blue-500 to-blue-900 border-0 rounded-lg hover:scale-110 text-white" href="/shop">All Products</a>
 						<img class="absolute right-4 bottom-4 w-40 h-10" src={brandImage} alt="Puma Adidas Nike" />
 					</div>
 					<div />

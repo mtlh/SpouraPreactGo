@@ -66,7 +66,7 @@ export function Header({user, setUser, loading}) {
 					</li>
 				</ul>
 			</div>
-			<a class="btn btn-ghost font-extrabold text-transparent text-4xl bg-clip-text bg-gradient-to-r from-blue-500 to-blue-900" href="/">Spoura</a>
+			<a class="btn btn-ghost font-extrabold text-transparent text-4xl bg-clip-text bg-gradient-to-r from-blue-500 to-blue-900" href="/">SPOURA</a>
 			</div>
 			<div class="navbar-center hidden lg:flex">
 			<ul class="menu-horizontal px-1" tabindex={0}>
@@ -297,7 +297,7 @@ export function Header({user, setUser, loading}) {
 							</>
 						}
 						<div class="card-actions py-2">
-							<a href="/cart"><button class="btn btn-block bg-gradient-to-r from-blue-500 to-blue-900 border-0">View cart</button></a>
+							<a href="/cart"><button class="btn btn-block bg-gradient-to-r from-blue-500 to-blue-900 border-0 text-white">View cart</button></a>
 						</div>
 					</div>
 				</div>
