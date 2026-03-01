@@ -83,7 +83,7 @@ export const FilterBar: FunctionComponent<FilterBarProps> = ({
 
                 {/* Category Filter */}
                 <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-primary btn-outline h-12 min-w-[160px] justify-between gap-2">
+                    <label tabIndex={0} className="btn h-12 min-w-[160px] justify-between gap-2">
                         <span className="truncate">
                             {categoryOptions.find(opt => opt.value === categoryValue)?.label || "Category"}
                         </span>
@@ -91,11 +91,12 @@ export const FilterBar: FunctionComponent<FilterBarProps> = ({
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </label>
-                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow-lg bg-primary text-primary-content rounded-box w-52 mt-2">
+                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-2">
                         {categoryOptions.map((option) => (
                             <li key={option.value}>
                                 <button
-                                    className={`${categoryValue === option.value ? 'bg-white/20' : 'hover:bg-white/10'}`}
+                                    disabled={categoryValue === option.value}
+                                    className={categoryValue === option.value ? 'bg-primary text-primary-content' : ''}
                                     onClick={() => onCategoryChange(option.value)}
                                 >
                                     {option.label}
@@ -107,7 +108,7 @@ export const FilterBar: FunctionComponent<FilterBarProps> = ({
 
                 {/* Sort Filter */}
                 <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-primary btn-outline h-12 min-w-[180px] justify-between gap-2">
+                    <label tabIndex={0} className="btn h-12 min-w-[180px] justify-between gap-2">
                         <span className="truncate">
                             {sortOptions.find(opt => opt.value === sortValue)?.label || "Sort"}
                         </span>
@@ -115,11 +116,12 @@ export const FilterBar: FunctionComponent<FilterBarProps> = ({
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </label>
-                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow-lg bg-primary text-primary-content rounded-box w-52 mt-2">
+                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-2">
                         {sortOptions.map((option) => (
                             <li key={option.value}>
                                 <button
-                                    className={`${sortValue === option.value ? 'bg-white/20' : 'hover:bg-white/10'}`}
+                                    disabled={sortValue === option.value}
+                                    className={sortValue === option.value ? 'bg-primary text-primary-content' : ''}
                                     onClick={() => onSortChange(option.value)}
                                 >
                                     {option.label}
