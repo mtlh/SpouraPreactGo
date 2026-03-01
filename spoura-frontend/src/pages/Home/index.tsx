@@ -83,27 +83,27 @@ export function Home() {
 			</div>
 
 			{/* Brands Section */}
-			<div class="grid grid-cols-4 items-center w-full h-full text-center justify-center">
+			<div class="grid grid-cols-2 items-center w-full h-full text-center justify-center p-4">
 				<a href="/brand/nike">
-					<div class="card-zoom">
+					<div class="card-zoom h-[500px]">
 						<div class="card-zoom-image nike"></div>
 						<h1 class="card-zoom-text">NIKE</h1>
 					</div>
 				</a>
 				<a href="/brand/adidas">
-					<div class="card-zoom">
+					<div class="card-zoom h-[500px]">
 						<div class="card-zoom-image adidas"></div>
 						<h1 class="card-zoom-text">ADIDAS</h1>
 					</div>
 				</a>
 				<a href="/brand/puma">
-					<div class="card-zoom">
+					<div class="card-zoom h-[500px]">
 						<div class="card-zoom-image puma"></div>
 						<h1 class="card-zoom-text">PUMA</h1>
 					</div>
 				</a>
 				<a href="/brand/under-armour">
-					<div class="card-zoom">
+					<div class="card-zoom h-[500px]">
 					<div class="card-zoom-image under"></div>
 					<h1 class="card-zoom-text">UNDER ARMOUR</h1>
 					</div>
