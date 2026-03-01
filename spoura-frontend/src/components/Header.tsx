@@ -94,8 +94,6 @@ const kidsSections = [
 ];
 
 export function Header({user, setUser, loading}) {
-	// console.log(user, loading)
-
 	const [subtotal, setSubtotal] = useState(0);
 	const [removeCartLoading, setRemoveCartLoading] = useState(false);
 	useEffect(() => {
@@ -322,7 +320,6 @@ function filterSuggestions(suggestions: Array<any>, userInput) {
 	let filteredSuggestions = suggestions.filter(
 		suggestion => suggestion.Name.toLowerCase().indexOf(userInput.toLowerCase()) > -1
 	)
-	filteredSuggestions.unshift({Name: "Custom Search", URLSlug: "custom-search"});
 	if (filteredSuggestions.length > 10) {
 		filteredSuggestions = filteredSuggestions.slice(0, 10);
 	}
@@ -333,37 +330,30 @@ const Autocomplete = ({ suggestions }) => {
 	const [filteredSuggestions, setFilteredSuggestions] = useState([]);
 	const [showSuggestions, setShowSuggestions] = useState(false);
 	const [userInput, setUserInput] = useState("");
-	const [activeSuggestion, setActiveSuggestion] = useState(0);
+	const [activeSuggestion, setActiveSuggestion] = useState(-1);
   
 	const onChange = (e) => {
 	  const userInput = e.target.value;
 	  setUserInput(userInput);
 	  setFilteredSuggestions(filterSuggestions(suggestions, userInput));
 	  setShowSuggestions(true);
-	  setActiveSuggestion(0);
+	  setActiveSuggestion(-1);
 	};
   
 	const onClick = (e) => {
-	  setUserInput(e.currentTarget.getAttribute('data-name'));
+	  const urlSlug = e.currentTarget.getAttribute('data-urlslug');
+	  const name = e.currentTarget.getAttribute('data-name');
+	  setUserInput(name);
 	  setShowSuggestions(false);
+	  window.location.href = `/product/${urlSlug}`;
 	};
   
 	const onKeyDown = (e) => {
 		if (e.key === 'Enter') {
-			const filteredSuggestions = filterSuggestions(suggestions, userInput);
-			// console.log(showSuggestions, userInput, filteredSuggestions)
-			if (filteredSuggestions.length == 2 && !showSuggestions) {
-				window.location.href = `/product/${filteredSuggestions[1].URLSlug}`;
-				// console.log(filteredSuggestions[0].URLSlug)
-			} else if (showSuggestions) {
-				if (filteredSuggestions[activeSuggestion].Name == "Custom Search") {
-					window.location.href = `/shop?query=${userInput}`;
-				} else {
-					window.location.href = `/product/${filteredSuggestions[activeSuggestion].URLSlug}`;
-				}
-			} else {
+			if (showSuggestions && filteredSuggestions.length > 0 && activeSuggestion >= 0) {
+				window.location.href = `/product/${filteredSuggestions[activeSuggestion].URLSlug}`;
+			} else if (userInput.trim()) {
 				window.location.href = `/shop?query=${userInput}`;
-				// console.log(userInput)
 			}
 		} else if (e.key === 'ArrowDown') {
 			if (activeSuggestion < filteredSuggestions.length - 1) {
@@ -379,37 +369,52 @@ const Autocomplete = ({ suggestions }) => {
 	};
   
 	const SuggestionsListComponent = () => {
-	  return filteredSuggestions.length ? (
-		<ul className="suggestions bg-white border border-gray-300 rounded mt-2 absolute z-10 w-52">
+	  if (!filteredSuggestions.length) {
+		return null;
+	  }
+	  return (
+		<ul className="suggestions bg-white border border-gray-200 rounded-xl mt-2 absolute z-10 w-72 shadow-xl">
 		  {filteredSuggestions.map((suggestion, index) => {
-			const className = index === activeSuggestion ? "suggestion-active bg-blue-200" : "";
+			const className = index === activeSuggestion && activeSuggestion >= 0 ? "bg-blue-500 text-white" : "hover:bg-gray-100 text-gray-800";
 			return (
-			  <li key={index} data-name={suggestion.Name} onClick={onClick} className={`p-2 cursor-pointer ${className}`}>
+			  <li key={index} data-name={suggestion.Name} data-urlslug={suggestion.URLSlug} onClick={onClick} className={`p-3 cursor-pointer rounded-lg transition-colors ${className}`}>
 				{suggestion.Name}
 			  </li>
 			);
 		  })}
 		</ul>
-	  ) : (
-		<div className="no-suggestions p-2">
-		  <em>No suggestions!</em>
-		</div>
 	  );
 	};
   
+	const handleSearch = () => {
+		if (userInput.trim()) {
+			window.location.href = `/shop?query=${userInput}`;
+		}
+	};
+
 	return (
 	  <div className="relative">
-		<input
-		  type="text"
-		  className="rounded-lg p-2 bg-slate-200 w-52"
-		  placeholder="Search..."
-		  onChange={onChange}
-		  onKeyDown={onKeyDown}
-		  value={userInput}
-		  aria-autocomplete="list"
-		  aria-controls="autocomplete-list"
-		  aria-activedescendant={`autocomplete-item-${activeSuggestion}`}
-		/>
+		<div className="flex items-center">
+			<input
+			  type="text"
+			  className="rounded-l-xl px-4 py-2 bg-gray-100 w-48 border-2 border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none h-10"
+			  placeholder="Search shoes..."
+			  onChange={onChange}
+			  onKeyDown={onKeyDown}
+			  value={userInput}
+			  aria-autocomplete="list"
+			  aria-controls="autocomplete-list"
+			  aria-activedescendant={`autocomplete-item-${activeSuggestion}`}
+			/>
+			<button
+				onClick={handleSearch}
+				className="px-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-r-xl hover:from-blue-600 hover:to-blue-700 transition-all border-l-0 h-10 flex items-center justify-center"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+					<path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+				</svg>
+			</button>
+		</div>
 		{showSuggestions && userInput && (
 		  <SuggestionsListComponent />
 		)}
