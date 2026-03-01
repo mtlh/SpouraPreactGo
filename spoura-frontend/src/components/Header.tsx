@@ -159,21 +159,21 @@ export function Header({user, setUser, loading}) {
 			<div class="navbar-center hidden lg:flex">
 			<ul class="menu-horizontal px-1" tabindex={0}>
 				<li class="hoverable hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white">
-				<div class="relative block py-6 px-4 lg:p-6 text-sm lg:text-base hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white font-semibold">
+				<div class="relative block py-6 px-4 lg:p-6 text-sm lg:text-base hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white">
 					Men's
 				</div>
 				<MegaMenu title="Men's" sections={mensSections} typeChar="m" />
 				</li>
 				<li class="hoverable hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white">
-				<div class="relative block py-6 px-4 lg:p-6 text-sm lg:text-base hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white font-semibold">Women's</div>
+				<div class="relative block py-6 px-4 lg:p-6 text-sm lg:text-base hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white">Women's</div>
 				<MegaMenu title="Women's" sections={womensSections} typeChar="w" />
 				</li>
 				<li class="hoverable hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white">
-				<div class="relative block py-6 px-4 lg:p-6 text-sm lg:text-base hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white font-semibold">Kids</div>
+				<div class="relative block py-6 px-4 lg:p-6 text-sm lg:text-base hover:bg-gradient-to-r from-blue-500 to-blue-900 hover:text-white">Kids</div>
 				<MegaMenu title="Kids" sections={kidsSections} typeChar="k" />
 				</li>
-				<li class="m-auto py-6 px-4 lg:p-6"><a href="/about">About</a></li>
-				<li class="m-auto py-6 px-4 lg:p-6"><a href="/contact">Contact</a></li>
+				<li class="m-auto py-6 px-4 lg:p-6 font-normal"><a href="/about">About</a></li>
+				<li class="m-auto py-6 px-4 lg:p-6 font-normal"><a href="/contact">Contact</a></li>
 			</ul>
 			</div>
 			<div class="navbar-end">

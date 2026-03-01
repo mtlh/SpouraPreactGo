@@ -1,8 +1,8 @@
 export default function ProductReusable({product}) {
     return (
-        <div class="group" key={product.id}>
-            <a href={"/product/" + product.URLSlug} class="block">
-                <div class="card bg-base-100 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+        <div class="group w-full" key={product.id}>
+            <a href={"/product/" + product.URLSlug} class="block w-full">
+                <div class="card bg-base-100 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 w-full max-w-sm mx-auto">
                     {/* Product Image */}
                     <figure class="relative aspect-[3/4] overflow-hidden">
                         <img
