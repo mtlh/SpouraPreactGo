@@ -1,3 +1,5 @@
+import allshoes from "../../assets/allshoes.webp";
+
 export function About() {
     return (
         <>
@@ -25,7 +27,7 @@ export function About() {
                         <img
                             alt="Hero Thumbnail Shoes"
                             className="rounded-2xl shadow-2xl w-full max-w-md"
-                            src="https://cdn.oneal.eu/tmp/image-thumbnails/_default_upload_bucket/25032/image-thumb__25032__600x600/2022_ONeal_FLOW%20SPD%20V.22_gray_blue.png"
+                            src={allshoes}
                         />
                     </div>
                 </div>

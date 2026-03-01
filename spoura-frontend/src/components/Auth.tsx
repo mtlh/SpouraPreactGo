@@ -1,3 +1,5 @@
+import { API_ENDPOINTS } from "../utils/api";
+
 async function Auth() {
     const currentCookieval = getCookiesWithValue("spoura_session")
     if (currentCookieval == null) {
@@ -30,7 +32,7 @@ export async function AuthWrapper () {
 
 async function NewSession() {
     try {
-        const response = await fetch('https://spoura-go-api.vercel.app/api/createsession');
+        const response = await fetch(API_ENDPOINTS.session.create);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -43,7 +45,7 @@ async function NewSession() {
 
 async function GetSession(cookieVal: string) {
     try {
-        const response = await fetch('https://spoura-go-api.vercel.app/api/session/' + encodeURIComponent(cookieVal));
+        const response = await fetch(API_ENDPOINTS.session.get(cookieVal));
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -56,7 +58,6 @@ async function GetSession(cookieVal: string) {
 
 export function getCookiesWithValue(value) {
     var cookies = document.cookie.split(';');
-    // console.log(cookies)
     for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i];
         while (cookie.charAt(0) == ' ') {

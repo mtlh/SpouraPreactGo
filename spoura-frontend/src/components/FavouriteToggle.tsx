@@ -1,13 +1,14 @@
 import { getCookiesWithValue } from "./Auth";
+import { API_ENDPOINTS } from "../utils/api";
 
-export async function FavouriteToggle (productSlug) {
+export async function FavouriteToggle (productSlug: string) {
     const currentCookieval = getCookiesWithValue("spoura_session")
     return await RequestToggle(currentCookieval, productSlug)
 }
 
 async function RequestToggle(currentCookieval: string, productSlug: string) {
     try {
-        const response = await fetch('https://spoura-go-api.vercel.app/api/favourite/' + productSlug + "/" + currentCookieval );
+        const response = await fetch(API_ENDPOINTS.favourite(productSlug, currentCookieval));
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

@@ -76,8 +76,7 @@ const CheckoutForm = () => {
         });
 
         if (result.error) {
-            // Show error to your customer (for example, payment details incomplete)
-            console.log(result.error.message);
+            // Error is handled by PaymentElement
         } else {
             // Your customer will be redirected to your `return_url`. For some payment
             // methods like iDEAL, your customer will be redirected to an intermediate

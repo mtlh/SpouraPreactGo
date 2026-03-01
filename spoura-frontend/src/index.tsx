@@ -19,6 +19,8 @@ import Profile from './pages/Profile/index.js';
 import { Payment } from './pages/Payment/index.js';
 import { Collection } from './pages/Collection/index.js';
 import { Brand } from './pages/Brand/index.js';
+import { Privacy } from './pages/Privacy/index.js';
+import { Terms } from './pages/Terms/index.js';
 
 export function App() {
 
@@ -61,6 +63,8 @@ export function App() {
 					<Route path="/" component={Home} />
 					<Route path="/about" component={About} />
 					<Route path="/contact" component={Contact} />
+					<Route path="/privacy" component={Privacy} />
+					<Route path="/terms" component={Terms} />
 					<Route path="/payment" component={Payment} />
 					<Cart path="/cart" user={user} setuser={setUser} />
 					<Profile path="/profile" user={user} setuser={setUser} />
