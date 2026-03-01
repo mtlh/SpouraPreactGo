@@ -1,4 +1,18 @@
-export default function ProductReusable({product}) {
+import { memo } from 'preact/compat';
+
+type ProductProps = {
+    product: {
+        id: number;
+        URLSlug: string;
+        ImgURL: string;
+        Name: string;
+        Price: number;
+        Type: string;
+        Brand?: string;
+    };
+};
+
+function ProductReusableComponent({ product }: ProductProps) {
     return (
         <div class="group w-full" key={product.id}>
             <a href={"/product/" + product.URLSlug} class="block w-full">
@@ -8,6 +22,8 @@ export default function ProductReusable({product}) {
                         <img
                             src={product.ImgURL}
                             alt={product.Name}
+                            loading="lazy"
+                            decoding="async"
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
 
@@ -38,7 +54,7 @@ export default function ProductReusable({product}) {
 
                     {/* Product Info */}
                     <div class="card-body p-4">
-                        <h3 class="card-title text-base line-clamp-2 text-base-content">
+                        <h3 class="card-title text-base line-clamp-1 text-base-content">
                             {product.Name}
                         </h3>
                         <div class="flex items-center justify-between mt-2">
@@ -51,5 +67,8 @@ export default function ProductReusable({product}) {
                 </div>
             </a>
         </div>
-    )
+    );
 }
+
+// Memoize to prevent unnecessary re-renders
+export default memo(ProductReusableComponent);
